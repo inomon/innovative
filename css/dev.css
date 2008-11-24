@@ -1,0 +1,71 @@
+/*
+ul{
+	display: inline;
+	margin: 0;
+	margin: 0px 10px;
+}
+*/
+div.treeview
+{
+  float:left;
+  width:35%;
+  border:1px #000000 dashed;
+}
+
+ul.treeview li
+{
+	padding: 0px 18px;
+	list-style: none;
+  background: url(../img/folder.gif) 0px -1px no-repeat;
+}
+
+ul.treeview li.file
+{
+	padding: 1px 18px;
+	list-style: none;
+  background: url(../img/txt.gif) 0px -1px no-repeat;
+}
+/*
+a.linkbutton
+{
+  text-align:right;
+}
+
+div.linkbutton 
+{
+  float: left;
+  text-align: left; 
+  margin-left: -10px;
+  margin-top: -13px;
+}
+*/
+div.window-manager
+{
+  margin-left:30px;
+  position:absolute;
+  right:20px;
+  float:right;
+  width:60%;
+  height:540px;
+  background:#eee;
+  border:1px #000000 dashed;
+  overflow: hidden;
+
+/*
+position: absolute;
+    top:30px;
+    width: 500px;
+    height: 500px;
+    left: 50%;
+    margin-left: -250px; 
+    border: 1px solid #333;     
+overflow: hidden;
+
+
+  
+  position:absolute;
+  left:50px;  
+  top:50px;
+*/
+}
+

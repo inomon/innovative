@@ -1,0 +1,2 @@
+<?php
+$ok = 'ok variable';
