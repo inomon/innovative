@@ -2,3 +2,13 @@ innovative: personal php framework
 
 MVC Architecture
 RAD
+
+other open source projects integrated into Innovative:
+javascript:
+  prototype:
+    - plugins: 
+      + modalbox [by: modalbits, uri to be provided]
+      + window [by: prototype-ui, uri to be provided]
+      + tooltips [still scowering from drive for the details]
+      + scriptaculous [uri to be provided]
+  fisheye: [by: marc grabanski (correct me if im wrong), uri to be provided]
