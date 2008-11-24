@@ -1,7 +1,10 @@
 INNOVATIVE: personal php framework
 
-MVC Architecture
-RAD
+model-view-controller (architecture)
+rapid application development
+
+built on:
+php5
 
 other open source projects integrated into Innovative:
 javascript:
@@ -12,3 +15,8 @@ javascript:
       + tooltips [still scowering from drive for the details]
       + scriptaculous [uri to be provided]
   fisheye: [by: marc grabanski (correct me if im wrong), uri to be provided]
+php
+  object-relational mapping
+    - propel [uri to be provided]
+  database abstraction layer
+    - creole [uri to be provided]
