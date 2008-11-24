@@ -1,5 +1,6 @@
-INNOVATIVE
+IM.INNOVATIVE
 my personal php framework
+
 
 model-view-controller (architecture)
 rapid application development
@@ -7,17 +8,20 @@ rapid application development
 built on:
 php5
 
-other open source projects integrated into Innovative:
+other open source projects used by IM.INNOVATIVE:
 javascript:
   prototype:
     - plugins: 
-      + modalbox [by: modalbits, uri to be provided]
-      + window [by: prototype-ui, uri to be provided]
-      + tooltips [still scowering from drive for the details]
-      + scriptaculous [uri to be provided]
-  fisheye: [by: marc grabanski (correct me if im wrong), uri to be provided]
+      + modalbox [Wildbit.com, http://www.wildbit.com/labs/modalbox/]
+      + window [Prototype-ui,http://prototype-ui.com]
+      + cooltips [Wildbit.com, http://www.wildbit.com/labs/cooltips/]
+      + scriptaculous [http://script.aculo.us/]
+  fisheye: [Marcgrabanski.com, http://marcgrabanski.com/pages/code/fisheye-menu]
 php
   object-relational mapping
-    - propel [uri to be provided]
+    - propel [Propel, http://propel.phpdb.org]
   database abstraction layer
-    - creole [uri to be provided]
+    - creole [Creole, http://creole.phpdb.or]
+
+** this software is free, the license right now is being formulated, but all in all it is open to all,
+but the above given projects/software code are subject to there own license
