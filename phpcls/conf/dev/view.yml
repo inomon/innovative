@@ -1,0 +1,28 @@
+view_layout:
+  homepage       : true
+
+  # module: module
+  module_add     : false
+  module_del     : false
+  module_ren     : false
+
+  # module: action
+  action_add     : false
+  action_del     : false
+  action_ren     : false
+
+  # module: component
+  comp_add       : false
+  comp_del       : false
+  comp_ren       : false
+
+  # module: action-template
+  act_tmplt_add  : false
+  act_tmplt_del  : false
+  act_tmplt_ren  : false
+
+  # module: component-template
+  comp_tmplt_add : false
+  comp_tmplt_del : false
+  comp_tmplt_ren : false
+
