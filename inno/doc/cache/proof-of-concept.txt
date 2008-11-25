@@ -1,0 +1,11 @@
+**to create the caching system:
+  - if a page is requested with no cached configuration file the cache configuration dumping will be enabled at the end of the request, before the page is rendered
+  - the configuration file is parsed into a PHP array then exported into a file
+  - the file is then saved into the cache folder with a application specific folder
+    + {LIBRARY}/cache/[APP-NAME]
+  ^concept: create a page/request/url specific cofiguration file
+  
+**to use the cache config:
+  - the cached configuration of the requested page is first check if it exists
+    + true:  the configuration files will then be included in the request
+    + false: the cache configuration dumping will be enabled and the cache config loading will be aborted

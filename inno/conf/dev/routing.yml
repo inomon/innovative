@@ -1,0 +1,31 @@
+homepage: { module: default, action: basictreeview, url: / }
+login:    { module: default, action: login, url: /login }
+logout:   { module: default, action: logout, url: /logout }
+treeview: { module: default, action: basictreeview, url: /treeview }
+  
+# module: module
+module_add: { module: module, action: create, url: /module_add }
+module_del: { module: module, action: delete, url: /module_del }
+module_ren: { module: module, action: rename, url: /module_ren }
+
+# module: action
+action_add: { module: action, action: create, url: /action_add }
+action_del: { module: action, action: delete, url: /action_del }
+action_ren: { module: action, action: rename, url: /action_ren }
+
+# module: component 
+comp_add: { module: component, action: create, url: /comp_add }
+comp_del: { module: component, action: delete, url: /comp_del }
+comp_del: { module: component, action: rename, url: /comp_del }
+
+# module: action-template
+act_tmplt_add: { module: template, action: act_create, url: /act_tmplt_add }
+act_tmplt_del: { module: template, action: act_delete, url: /act_tmplt_del }
+act_tmplt_ren: { module: template, action: act_rename, url: /act_tmplt_ren }
+
+# module: component-template
+comp_tmplt_add: { module: template, action: comp_create, url: /comp_tmplt_add }
+comp_tmplt_del: { module: template, action: comp_delete, url: /comp_tmplt_del }
+comp_tmplt_ren: { module: template, action: comp_rename, url: /comp_tmplt_ren }
+
+

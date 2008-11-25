@@ -1,0 +1,6 @@
+creaating an application:
+
+developer panel: 
+  - create a new application
+  - determine application name
+  - configure application environment details

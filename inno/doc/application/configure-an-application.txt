@@ -1,0 +1,16 @@
+the directory of an application:
+  {LIBRARY}/appli/[APP-NAME]
+    - module folders
+    - layouts used by the application
+  
+application configuration directory:
+  {LIBRARY}/conf/[APP-NAME]
+    - the ini file [APP-NAME].ini.php
+      + contains application environment initialization details
+    -the yml configuration files
+      + app.yml
+      + module.yml
+      + routing.yml
+      + site.yml
+      + view.yml
+      + web.yml

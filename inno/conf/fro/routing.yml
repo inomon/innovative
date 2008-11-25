@@ -1,0 +1,11 @@
+homepage: { module: default, action: index, url: / }
+
+login: { module: default, action: login, url: /login, suffix: html }
+
+logout: { module: default, action: logout, url: /logout, suffix: html }
+
+header: { module: header, action: index, url: /header/index, suffix: html }
+
+site: { module: site, action: index, url: /site }
+  
+schema: { module: default, action: schema, url: /schema, suffix: xml }

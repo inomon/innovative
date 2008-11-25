@@ -1,0 +1,16 @@
+innovative: developer panel
+
+the developer panel, is the most basic & fastest way to create an application
+
+^concept: 
+[
+  + input application details
+  + configure application details
+  + generate scaffolding for the application
+    + create modules 
+      + create actions
+        + create action template
+      + create components
+        + create component template
+  + configure environment specific variables & objects
+]
