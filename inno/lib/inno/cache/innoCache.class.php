@@ -19,16 +19,31 @@ class innoCache
     $this->cache_dir = innoDir::get('CACHE');
   }
   
-  public function isCached()
+  public function isConfCached()
   {
+    if (DEBUG) return false;
+
+    if (file_exists(innoDir::get('CACHE_CONF').'innoconfig.php'))
+      return true;
     
+    return false;
+  }
+  
+  public function isTmpltCached()
+  {
+    if (DEBUG) return false;
+
+    if (file_exists(innoDir::get('CACHE_TMPLT').str_replace('/', '-', innoConfig::getFlushable('inno_routing_url_base')).'.tmplt'))
+      return true;
+    
+    return false;
   }
   
   public function loadConfig()
   {
     if (DEBUG) return null;
     
-    include innoDir::get('CACHE_CONF').'innoconfig.php';
+    $this->getCache(innoDir::get('CACHE_CONF').'innoconfig.php', 'conf');
     
     return null;    
   }
@@ -46,10 +61,9 @@ class innoCache
         $time_diff = $current_time - $template_atime;
         if ($time_diff > 0 && $time_diff <= innoConfig::getFlushable('inno_routing_url_life'))
         {
-          return 
+          return $this->getCache(innoDir::get('CACHE_TMPLT').str_replace('/', '-', innoConfig::getFlushable('inno_routing_url_base')).'.tmplt', 'tmplt');
         }
-        else if ($time_diff > innoConfig::getFlushable('inno_routing_url_life') && innoConfig::getFlushable('inno_routing_url_life') >= innoConfig::get('min_template_life'))
-        return $this->cache(innoDir::get('CACHE_TMPLT').str_replace('/', '-', innoConfig::getFlushable('inno_routing_url_base')).'.tmplt', $template);
+        //else if ($time_diff > innoConfig::getFlushable('inno_routing_url_life') && innoConfig::getFlushable('inno_routing_url_life') >= innoConfig::get('min_template_life'))
       }
     }
     
@@ -62,7 +76,8 @@ class innoCache
     
     if (file_exists(innoDir::get('CACHE_CONF')) && is_writable($this->cache_dir))
     {
-      $config = 'innoConfig::addFromCache('.var_export(innoConfig::getAll(), true).');';
+      $conf = var_export(innoConfig::getAll(), true);
+      $config = "<?php\ninnoConfig::addFromCache(".$conf.");";
       return $this->cache(innoDir::get('CACHE_CONF').'innoconfig.php', $config);
     }
     

@@ -13,6 +13,7 @@
 class innoController
 {
   protected $status = 'initialized';
+  protected static $inno_cache = 'initialized';
   protected static $inno_request = 'initialized';
   protected static $inno_routing = 'initialized';
   
@@ -28,6 +29,16 @@ class innoController
   }
   
   /* mutators for objects used in the page */
+  protected function getCache()
+  {
+    return self::$inno_cache;
+  }
+  
+  public static function setCache($cache)
+  {
+    self::$inno_cache = clone $cache;
+  }
+  
   protected function getRequest()
   {
     return self::$inno_request;
@@ -130,7 +141,17 @@ class innoController
       $this->getRequest()->setAction('error404');
       $inno_action = sprintf(innoDir::get('MODULE_ACTION'), $this->getRequest()->getModule()).$this->getRequest()->getAction().'.action.php';
     }
-*/    
+*/   
+
+    if ($this->getCache()->isTmpltCached())
+    {
+      echo $this->getCache()->loadTemplate();
+      
+      // @todo: (arguable statement) check if this will optimize the code/application of slow it down
+      $this->getCache()->dumpConfig();
+      return;
+    }
+    
     // get the action
     $inno_action = sprintf(innoDir::get('MODULE_ACTION'), $this->getRouting()->getModule()).$this->getRouting()->getAction().'.action.php';
     // set default layout
@@ -180,7 +201,8 @@ class innoController
     
     if(!innoRenderer::viewLayout($this->getRouting()->getRouteAlias()) || !innoRenderer::isLayoutRenderable())
     {
-      innoRenderer::renderTemplate();
+      echo innoRenderer::renderTemplate();
+      $this->getCache()->dumpTemplate($inno_template);
     }
     else
     {
@@ -197,9 +219,15 @@ class innoController
       // set layout contents
       innoRenderer::setLayout($inno_layout);
       
-      // render view components
-      innoRenderer::renderLayout();
+      // render whole layout template
+      echo innoRenderer::renderLayout();
+      $this->getCache()->dumpTemplate($inno_layout);
     }
+    
+    // @todo: (arguable statement) check if this will optimize the code/application of slow it down
+    $this->getCache()->dumpConfig();
+    
+    return;
   }
   
 }

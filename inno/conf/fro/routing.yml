@@ -1,4 +1,4 @@
-homepage: { module: default, action: index, url: / }
+homepage: { module: default, action: index, url: /, life: 20 }
 
 login: { module: default, action: login, url: /login, suffix: html }
 

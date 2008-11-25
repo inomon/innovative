@@ -24,13 +24,19 @@ include_once('inno.dir.php');
 // load needed classes
 include_once(innoDir::get('INNO_LIB').'Spyc.class.php');
 include_once(innoDir::get('INNO_LIB').'innoConfig.class.php');
+include_once(innoDir::get('INNO_LIB').'cache/innoCache.class.php');
 
 // load helper classes
 include_once(innoDir::get('INNO_HELPER').'Loader.helper.php');
 // include initialization file depending on environment
 if(!file_exists(innoDir::get('CONF').APPLI.'.ini.php'))
   die('<html><body><font color="red">Environment dependent initialization file, NOT FOUND!!</font></body></html>');
-require_once(innoDir::get('CONF').APPLI.'.ini.php');
+
+$inno_cache = new innoCache();
+if ($inno_cache->isConfCached())
+  $inno_cache->loadConfig();
+else
+  require_once(innoDir::get('CONF').APPLI.'.ini.php');
 
 // initialize default loaded classes and helpers
 load_helper(
@@ -57,7 +63,8 @@ if(isset($_SERVER['REDIRECT_URL']))
     $url = $_SERVER['REDIRECT_URL']; 
 }
 else if(isset($_SERVER['PATH_INFO']))
-  $url = $_SERVER['PATH_INFO']; 
+  $url = $_SERVER['PATH_INFO'];
 
 innoController::setRequest(new innoRequest());
 innoController::setRouting(new innoRouting(innoConfig::get('inno_routing_rules'), $url));
+innoController::setCache($inno_cache);

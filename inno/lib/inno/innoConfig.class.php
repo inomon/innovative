@@ -15,7 +15,7 @@ class innoConfig
   protected static $config = array();
   protected static $flushable_config = array();
   
-  /* mutators for cacheable configurations */
+  /* mutators for non-cacheable/flushable configurations */
   public static function setFlushable($config_key, $value)
   {
     self::$flushable_config[$config_key] = $value;

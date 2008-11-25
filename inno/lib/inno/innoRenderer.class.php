@@ -117,20 +117,35 @@ class innoRenderer
       self::$headers = self::$headers.style_tag(innoAssets::getStyleHead())."\n";
        
   }
-
+  
+  /*
+   * Return the rendered template, which will be used for cache dumping
+   *
+   *
+   */
   public static function renderTemplate()
   {
     echo self::$template;
   }
   
-  public static function renderLayout()
-  {
-    echo self::$layout;
-  }
-  
+  /*
+   * Return the rendered headers, which will be used for cache dumping
+   *
+   *
+   */
   public static function renderHeaders()
   {
     echo self::$headers;
+  }
+  
+  /*
+   * Return the rendered layout, which will be used for cache dumping
+   *
+   *
+   */
+  public static function renderLayout()
+  {
+    return self::$layout;
   }
   
   public static function viewLayout($alias)
