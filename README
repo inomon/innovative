@@ -22,6 +22,8 @@ php
     - propel [Propel, http://propel.phpdb.org]
   database abstraction layer
     - creole [Creole, http://creole.phpdb.org]
+  yml to php
+    - spyc [SimplePhpYamlClass, http://spyc.sourceforge.net]
 
 ** this software is free, the license right now is being formulated, but all in all it is open to all,
 but the above given projects/software code are subject to there own license
