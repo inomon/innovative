@@ -1,0 +1,23 @@
+php_flag register_globals On
+php_flag ze1_compatibility_mode	Off
+php_flag magic_quotes_gpc	Off
+php_flag magic_quotes_sybase	Off 
+php_value error_reporting  E_ALL 
+
+Options +FollowSymLinks +ExecCGI
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+#  RewriteBase /
+
+  #RewriteCond %{REQUEST_URI} \..+$
+  #RewriteCond %{REQUEST_URI} !\.html$
+  #RewriteRule .* - [L]
+   
+  # start - this is the rule for the other environments
+  RewriteRule ^backend.php/(.*)$ backend.php [QSA,L]
+  # end - this is the rule for the other environments
+  
+  # the two most basic application environment
+  RewriteRule ^dev.php/(.*)$ dev.php [QSA,L]
+  RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
