@@ -12,5 +12,9 @@ innoConfig::add(Spyc::YAMLLoad(innoDir::get('CONF').'site.yml'));
 // load the view configuration
 innoConfig::add(Spyc::YAMLLoad(innoDir::get('CONF').'view.yml'));
 
+// load the routing rules
+innoConfig::set('inno_routing_rules', Spyc::YAMLLoad(innoDir::get('CONF').'routing.yml'));
+
+/* @todo: check for dependencies, [DEPRECATED] */
 // the directory which contains the routing rules
-$inno_routing_dir = innoDir::get('CONF').'routing.yml';
+#$inno_routing_dir = innoDir::get('CONF').'routing.yml';

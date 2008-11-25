@@ -2,6 +2,7 @@
 define('DIR_SEP', '/');
 define('LIB',     realpath(dirname(__FILE__).DIR_SEP.'inno'));
 define('APPLI',   'dev');
+define('DEBUG',   false);
 
 require_once(LIB.DIR_SEP.'conf'.DIR_SEP.'config.php');
 

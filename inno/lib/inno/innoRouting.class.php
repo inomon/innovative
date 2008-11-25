@@ -14,11 +14,11 @@
 class innoRouting
 {
   protected $routes = array();
-  // @todo: [DEPRECATED] to be deleted
-  protected $route_base = '';
   protected $route_alias = '';
   protected $module_name = '';
   protected $action_name = '';
+  // @todo: [DEPRECATED] to be deleted
+  protected $route_base = '';
   
   // mutators: module
   public function getModule()
@@ -82,6 +82,11 @@ class innoRouting
           $this->setModule($this->routes[$alias]['module']);
           $this->setAction($this->routes[$alias]['action']);
           $this->route_alias = $alias;
+          if (isset($this->routes[$alias]['life']))
+          {
+            innoConfig::setFlushable('inno_routing_url_base', $this->routes[$alias]['url']);
+            innoConfig::setFlushable('inno_routing_url_life', $this->routes[$alias]['life']);
+          }
           break;
         }
         else if($this->routes[$alias]['url'].'/' == $url)
@@ -89,6 +94,11 @@ class innoRouting
           $this->setModule($this->routes[$alias]['module']);
           $this->setAction($this->routes[$alias]['action']);
           $this->route_alias = $alias;
+          if (isset($this->routes[$alias]['life']))
+          {
+            innoConfig::setFlushable('inno_routing_url_base', $this->routes[$alias]['url']);
+            innoConfig::setFlushable('inno_routing_url_life', $this->routes[$alias]['life']);
+          }
           break;
         }
       }
@@ -96,6 +106,11 @@ class innoRouting
       {
         $this->setModule($this->routes[$alias]['module']);
         $this->setAction($this->routes[$alias]['action']);
+        if (isset($this->routes[$alias]['life']))
+        {
+          innoConfig::setFlushable('inno_routing_url_base', $this->routes[$alias]['url']);
+          innoConfig::setFlushable('inno_routing_url_life', $this->routes[$alias]['life']);
+        }
         $this->route_alias = $alias;
         break;
       }

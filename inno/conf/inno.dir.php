@@ -50,6 +50,8 @@ innoDir::initialize(array(
         'INNO_HELPER'       => LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'helper'.DIR_SEP,
         'CONF'              => LIB.DIR_SEP.'conf'.DIR_SEP.APPLI.DIR_SEP,
         'CACHE'             => LIB.DIR_SEP.'cache'.DIR_SEP,
+        'CACHE_CONF'        => LIB.DIR_SEP.'cache'.DIR_SEP.'conf'.DIR_SEP.APPLI.DIR_SEP,
+        'CACHE_TMPLT'       => LIB.DIR_SEP.'cache'.DIR_SEP.'tmplt'.DIR_SEP.APPLI.DIR_SEP,
         'ASSETS'            => '',
         'MODULE'            => LIB.DIR_SEP.'appli'.DIR_SEP.APPLI.DIR_SEP,
         'MODULE_ACTION'     => LIB.DIR_SEP.'appli'.DIR_SEP.APPLI.DIR_SEP.'%s.mod'.DIR_SEP,

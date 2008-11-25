@@ -13,6 +13,39 @@
 class innoConfig 
 {
   protected static $config = array();
+  protected static $flushable_config = array();
+  
+  /* mutators for cacheable configurations */
+  public static function setFlushable($config_key, $value)
+  {
+    self::$flushable_config[$config_key] = $value;
+  }
+  
+  public static function hasFlushable($name)
+  {
+    return array_key_exists($name, self::$flushable_config);
+  }
+  
+  public static function getFlushable($config_key, $default = null)
+  {
+    return isset(self::$flushable_config[$config_key]) ? self::$flushable_config[$config_key] : $default;
+  }
+  
+  public static function getAllFlushable()
+  {
+    return self::$flushable_config;
+  }
+  
+  /* mutators for cacheable configurations */
+  public static function set($config_key, $value)
+  {
+    self::$config[$config_key] = $value;
+  }
+  
+  public static function has($name)
+  {
+    return array_key_exists($name, self::$config);
+  }
    
   public static function get($config_key, $default = null)
   {
@@ -32,19 +65,14 @@ class innoConfig
     return $spec_confg;
   }
   
-  public static function set($config_key, $value)
-  {
-    self::$config[$config_key] = $value;
-  }
-  
-  public static function has($name)
-  {
-    return array_key_exists($name, self::$config);
-  }
-  
   public static function add($parameters = array())
   {
     self::$config = array_merge(self::$config, self::addConfig($parameters));
+  }
+  
+  public static function addFromCache($parameters)
+  {
+    self::$config = array_merge(self::$config, $parameters);
   }
   
   public static function getAll()
