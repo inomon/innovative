@@ -2,7 +2,7 @@
 /*
  * Emulate error401 "Unauthorized"
  * 
- * @author:  Orlino L. Monares Jr. <ino@ooip.nl, ino@atissoftware.com, orlino_monares110987@yahoo.com>
+ * @author:  Orlino L. Monares Jr. <anxietylost110987@gmail.com, orlino_monares110987@yahoo.com>
  *
  * @package:
  * @subpackage:
