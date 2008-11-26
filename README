@@ -10,7 +10,7 @@ php5
 
 other open source projects used by IM.INNOVATIVE:
 javascript:
-  prototype:
+  prototype: [Protoypejs.org, http://www.prototypejs.org/]
     - plugins: 
       + modalbox [Wildbit.com, http://www.wildbit.com/labs/modalbox/]
       + window [Prototype-ui,http://prototype-ui.com]
@@ -27,3 +27,5 @@ php
 
 ** this software is free, the license right now is being formulated, but all in all it is open to all,
 but the above given projects/software code are subject to there own license
+
+#################### README V0.3 #########################
