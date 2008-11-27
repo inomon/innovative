@@ -32,7 +32,27 @@ class innoCache
   public function isTmpltCached()
   {
     if (DEBUG) return false;
-
+    /*
+    if (innoConfig::hasFlushable('inno_routing_url_life'))
+    {
+      if (innoConfig::getFlushable('inno_routing_url_life') >= innoConfig::get('min_template_life'))
+      {
+        $template_name = innoDir::get('CACHE_TMPLT').str_replace('/', '-', innoConfig::getFlushable('inno_routing_url_base')).'.tmplt';
+        if (!file_exists($template_name))
+          return false;
+        
+        $current_time = mktime(date("H"), date("i"), date("s"), date("n")  , date("j"), date("Y"));
+        $template_atime = filemtime($template_name);
+        $time_diff = $current_time - $template_atime;
+        // retrieve the cached template if the time difference is <= the life of the page && if the difference is 
+        if ($time_diff > 0 && $time_diff <= innoConfig::getFlushable('inno_routing_url_life'))
+          return true;
+        
+        return false;
+      }
+      return false;
+    }
+    */
     if (file_exists(innoDir::get('CACHE_TMPLT').str_replace('/', '-', innoConfig::getFlushable('inno_routing_url_base')).'.tmplt'))
       return true;
     
@@ -59,10 +79,13 @@ class innoCache
         $current_time = mktime(date("H"), date("i"), date("s"), date("n")  , date("j"), date("Y"));
         $template_atime = filemtime(innoDir::get('CACHE_TMPLT').str_replace('/', '-', innoConfig::getFlushable('inno_routing_url_base')).'.tmplt');
         $time_diff = $current_time - $template_atime;
+        // retrieve the cached template if the time difference is <= the life of the page && if the difference is 
         if ($time_diff > 0 && $time_diff <= innoConfig::getFlushable('inno_routing_url_life'))
         {
           return $this->getCache(innoDir::get('CACHE_TMPLT').str_replace('/', '-', innoConfig::getFlushable('inno_routing_url_base')).'.tmplt', 'tmplt');
         }
+        innoConfig::setFlushable('inno_cache_schedule_caching', true);
+        return null;
         //else if ($time_diff > innoConfig::getFlushable('inno_routing_url_life') && innoConfig::getFlushable('inno_routing_url_life') >= innoConfig::get('min_template_life'))
       }
     }
