@@ -119,6 +119,8 @@ class innoCache
     if (!(innoConfig::getFlushable('inno_cache_schedule_caching')))
       return null;
     
+    return $this->cache(innoDir::get('CACHE_TMPLT').str_replace('/', '-', innoConfig::getFlushable('inno_routing_url_base')).'.tmplt', $template);
+    /*
     if (file_exists(innoDir::get('CACHE_TMPLT')) && is_writable($this->cache_dir))
     {
       if (innoConfig::hasFlushable('inno_routing_url_life'))
@@ -129,7 +131,7 @@ class innoCache
         }
       }
     }
-    
+    */
     return null;
   }
   

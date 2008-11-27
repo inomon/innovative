@@ -12,13 +12,19 @@
 
 class innoController
 {
-  protected $status = 'initialized';
-  protected static $inno_cache = 'initialized';
-  protected static $inno_request = 'initialized';
-  protected static $inno_routing = 'initialized';
+  protected $status = 'uninitialized';
+  protected static $inno_cache = 'uninitialized';
+  protected static $inno_request = 'uninitialized';
+  protected static $inno_routing = 'uninitialized';
   
   // @todo: determine initialization variables needed by this controller
   public function __construct()
+  {
+    
+  }
+  
+  // @todo: determine garbage that will be used/dump by this controller
+  public function __destruct()
   {
     
   }
@@ -117,6 +123,37 @@ class innoController
   }
   /* unless conditions to forward to error */
   
+  /* skipping to action commands: basic, if, unless */
+  public function skipAction($module, $action)
+  {
+    $this->getRouting()->setModule($module);
+    $this->getRouting()->setAction($action);
+    
+    throw new innoSkipActionException('Skip action to; module:'.$module.' action:'.$action);
+  }
+  
+  public function skipActionIf($cond, $module, $action)
+  {
+    if($cond)
+    {
+      $this->getRouting()->setModule($module);
+      $this->getRouting()->setAction($action);
+      
+      throw new innoSkipActionException('Skip action to; module:'.$module.' action:'.$action);
+    }
+  }
+  
+  public function skipActionUnless($cond, $module, $action)
+  {
+    if(!$cond)
+    {
+      $this->getRouting()->setModule($module);
+      $this->getRouting()->setAction($action);
+      
+      throw new innoSkipActionException('Skip action to; module:'.$module.' action:'.$action);
+    }
+  }
+  
   public function run()
   {
 /*
@@ -150,41 +187,56 @@ class innoController
       return;
     }
     
-    // get the action
-    $inno_action = sprintf(innoDir::get('MODULE_ACTION'), $this->getRouting()->getModule()).$this->getRouting()->getAction().'.action.php';
+    
     // set default layout
     $inno_layout = 'layout';
     $inno_template = 'template';
-    
-    try
+    $inno_forward_action = false;
+    do
     {
-      // include the module-action
-      if (!file_exists($inno_action))
-        throw new Error404Exception('Error: Page Not Found', 1081404);
-      
-      include_once($inno_action);
-    }
-    catch(innoError404Exception $e)
-    {
-      $this->getRouting()->setModule('default');
-      $this->getRouting()->setAction('error404');
-      $inno_action = sprintf(innoDir::get('MODULE_ACTION'), $this->getRouting()->getModule()).'error404.action.php';
-      include_once($inno_action);  
-    }
-    catch(innoError403Exception $e)
-    {
-      $this->getRouting()->setModule('default');
-      $this->getRouting()->setAction('error403');
-      $inno_action = sprintf(innoDir::get('MODULE_ACTION'), $this->getRouting()->getModule()).'error403.action.php';
-      include_once($inno_action);  
-    }
-    catch(innoError401Exception $e)
-    {
-      $this->getRouting()->setModule('default');
-      $this->getRouting()->setAction('error401');
-      $inno_action = sprintf(innoDir::get('MODULE_ACTION'), $this->getRouting()->getModule()).'error401.action.php';
-      include_once($inno_action);  
-    }
+
+      try
+      {
+        // get the action
+        $inno_action = sprintf(innoDir::get('MODULE_ACTION'), $this->getRouting()->getModule()).$this->getRouting()->getAction().'.action.php';
+        
+        // include the module-action
+        if (!file_exists($inno_action))
+          throw new Error404Exception('Error: Page Not Found', 1081404);
+        
+        include_once($inno_action);
+        $inno_forward_action = false;
+      }
+      catch(innoError404Exception $e)
+      {
+        $this->getRouting()->setModule('default');
+        $this->getRouting()->setAction('error404');
+        $inno_action = sprintf(innoDir::get('MODULE_ACTION'), $this->getRouting()->getModule()).'error404.action.php';
+        include_once($inno_action);  
+        $inno_forward_action = false;
+      }
+      catch(innoError403Exception $e)
+      {
+        $this->getRouting()->setModule('default');
+        $this->getRouting()->setAction('error403');
+        $inno_action = sprintf(innoDir::get('MODULE_ACTION'), $this->getRouting()->getModule()).'error403.action.php';
+        include_once($inno_action);  
+        $inno_forward_action = false;
+      }
+      catch(innoError401Exception $e)
+      {
+        $this->getRouting()->setModule('default');
+        $this->getRouting()->setAction('error401');
+        $inno_action = sprintf(innoDir::get('MODULE_ACTION'), $this->getRouting()->getModule()).'error401.action.php';
+        include_once($inno_action);
+        $inno_forward_action = false;
+      }
+      catch(innoSkipActionException $e)
+      {
+        $inno_forward_action = true;
+      }
+    } while($inno_forward_action);
+  
 
     // use output buffer to get template contents
     // start output buffer
