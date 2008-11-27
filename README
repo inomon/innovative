@@ -7,6 +7,15 @@ rapid application development
 built on:
 php5
 
+requirements:
+php5
+  needed settings:
+    + include_path
+    + register_globals
+.htaccess
+  needed modules:
+    + mod_rewrite
+
 other open source projects used by I.INNOVATIVE:
 javascript:
   prototype: [Protoypejs.org, http://www.prototypejs.org/]
@@ -26,4 +35,4 @@ php
 
 ** this software is free, the license right now is being formulated, but the above given projects/software code are subject to there own license
 
-#################### README V0.3 #########################
+#################### README V0.4 #########################
