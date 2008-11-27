@@ -65,4 +65,16 @@ innoDir::initialize(array(
         'DEV_MODULE'        => LIB.DIR_SEP.'dev'.DIR_SEP,
         'DEV_MODULE_ACTION' => LIB.DIR_SEP.'dev'.DIR_SEP.'%s.mod'.DIR_SEP,
         'DEV_MODULE_TMPLT'  => LIB.DIR_SEP.'dev'.DIR_SEP.'%s.mod'.DIR_SEP.'tmplt'.DIR_SEP,
+        'INNO_LIB_DIRS'     => array(
+                                  LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'assets'.DIR_SEP,
+                                  LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'cache'.DIR_SEP,
+                                  LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'config'.DIR_SEP,
+                                  LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'controller'.DIR_SEP,
+                                  LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'exception'.DIR_SEP,
+                                  LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'renderer'.DIR_SEP,
+                                  LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'request'.DIR_SEP,
+                                  LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'routing'.DIR_SEP,
+                                  LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'utilities'.DIR_SEP,
+                                ),
       ));
+

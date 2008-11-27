@@ -23,7 +23,7 @@ function load_helper()
         initialize();
     }
     else 
-      die('This helper doesnt exist: '.$helper.'.helper.php');
+      die('This helper doesnt exist: '.$file);
   }
 }
 
@@ -32,11 +32,23 @@ function load_class()
   $classes = func_get_args();
   foreach ($classes as $class)
   {
-    $file = innoDir::get('INNO_LIB').$class.'.class.php';
-    if(file_exists($file))
+    $class_exists = false;
+    //$file = innoDir::get('INNO_LIB').$class.'.class.php';
+    $file = $class.'.class.php';
+    foreach (innoDir::get('INNO_LIB_DIRS') as $dir)
+    {
+      if(file_exists($dir.$file))
+      {
+        $file = $dir.$file;
+        $class_exists = true;
+        break;
+      }
+    }
+    
+    if($class_exists)
       include_once($file);
     else 
-      die('This class doesnt exist: '.$class.'.class.php');
+      die('This class doesnt exist: '.$file);
   }
 }
 
@@ -53,9 +65,9 @@ function load_custom_helper()
         initialize();
     }
     else 
-      die('This custom helper doesnt exist: '.(($loc) ? $loc.DIR_SEP : '').$helper.'.helper.php');
+      die('This custom helper doesnt exist: '.(($loc) ? $loc.DIR_SEP : '').$file);
   }
-  
+  /*
   if (!$helpers)
   {
     return;
@@ -69,8 +81,10 @@ function load_custom_helper()
     foreach ($helper as $helper)
       include_once(LIB.DIR_SEP.(($loc) ? $loc.DIR_SEP : '').$helper.'.helper.php');
   }
+  */
 }
 
+// @todo: for usage development/testing 
 function load_custom_class($classes = null, $loc = '')
 {
   if (!$classes)
@@ -105,6 +119,8 @@ function load_component($module, $component, $include_action = true)
   if (!file_exists($cmp_tmplt))
     return 'ERROR: The components template does not exist. : '.$component.'.comp.tmplt.php';
   
+  // @todo: test for dependencies, [DEPRECATED]
+  /* start DEPRECATION MARK */
   // makes the object created at the action, ('INNO' variables)  available in this component
   foreach ($GLOBALS as $key => $value)
   {
@@ -117,6 +133,7 @@ function load_component($module, $component, $include_action = true)
       $$key = $value;
     }
   }  
+  /* end DEPRECATION MARK */
   
   if($include_action)
     include_once($cmp);

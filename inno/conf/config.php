@@ -1,5 +1,6 @@
 <?php  if ( ! defined('LIB')) exit('Direct script access is not allowed!');
 
+// @todo: check where the libraries are needed for them to be included in the include_path
 // if server is not windows
 if (stripos($_SERVER["DOCUMENT_ROOT"], ':') === false)
 {
@@ -21,7 +22,7 @@ else
 // include the directory settings file
 include_once('inno.dir.php');
 
-// load needed classes
+// load needed classes to speed-up the initilization 
 include_once(innoDir::get('INNO_LIB').'utilities/Spyc.class.php');
 include_once(innoDir::get('INNO_LIB').'config/innoConfig.class.php');
 include_once(innoDir::get('INNO_LIB').'cache/innoCache.class.php');
@@ -59,34 +60,5 @@ else
   innoConfig::set('inno_appli_settings', Spyc::YAMLLoad(innoDir::get('CONF').'settings.yml'));
 }
 
-// initialize default loaded classes and helpers
-load_helper(
-  'Tag', 
-  'Exception'
-);
-load_class(
-  'innoAssets', 
-  'innoRenderer', 
-  'innoRequest', 
-  'innoRouting',
-  'controller/innoController',
-  'exception/Error401Exception',
-  'exception/Error403Exception',
-  'exception/Error404Exception'
-);
-
-$url = '/';
-if(isset($_SERVER['REDIRECT_URL']))
-{
-  if(strpos($_SERVER['REDIRECT_URL'], '.php') !== false)
-    $url = substr($_SERVER['REDIRECT_URL'], strpos($_SERVER['REDIRECT_URL'], '.php')+4, strlen($_SERVER['REDIRECT_URL']));
-  else
-    $url = $_SERVER['REDIRECT_URL']; 
-}
-else if(isset($_SERVER['PATH_INFO']))
-  $url = $_SERVER['PATH_INFO'];
-
-innoController::setRequest(new innoRequest());
-innoController::setRouting(new innoRouting(innoConfig::get('inno_routing_rules'), $url));
-innoController::setCache($inno_cache);
-
+// include the universal initialization file for i.i
+include_once('inno.ini.php');
