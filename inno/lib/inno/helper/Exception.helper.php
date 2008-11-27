@@ -21,17 +21,17 @@ function forwardTo($module, $action)
 /* conventional forward to errors */
 function forwardTo404()
 {
-  throw new Error404Exception('Error: Page Not Found', 1081404);
+  throw new innoError404Exception('Error: Page Not Found', 1081404);
 }
 
 function forwardTo403()
 {
-  throw new Error403Exception('Error: Page Access Forbidden', 1081403);
+  throw new innoError403Exception('Error: Page Access Forbidden', 1081403);
 }
 
 function forwardTo401()
 {
-  throw new Error401Exception('Error: Page Access Unauthorized', 1081401);
+  throw new innoError401Exception('Error: Page Access Unauthorized', 1081401);
 }
 /* conventional forward to errors */
 
@@ -39,19 +39,19 @@ function forwardTo401()
 function forwardTo404If($cond)
 {
   if($cond)
-    throw new Error404Exception('Error: Page Not Found', 1082404);
+    throw new innoError404Exception('Error: Page Not Found', 1082404);
 }
 
 function forwardTo403If($cond)
 {
   if($cond)
-    throw new Error403Exception('Error: Page Access Forbidden', 1082403);
+    throw new innoError403Exception('Error: Page Access Forbidden', 1082403);
 }
 
 function forwardTo401If($cond)
 {
   if($cond)
-    throw new Error403Exception('Error: Page Access Forbidden', 1082403);
+    throw new innoError403Exception('Error: Page Access Forbidden', 1082403);
 }
 /* if conditions to forward to error */
 
@@ -59,18 +59,18 @@ function forwardTo401If($cond)
 function forwardTo404Unless($cond)
 {
   if(!$cond)
-    throw new Error404Exception('Error: Page Not Found', 1083404);
+    throw new innoError404Exception('Error: Page Not Found', 1083404);
 }
 
 function forwardTo403Unless($cond)
 {
   if(!$cond)
-    throw new Error403Exception('Error: Page Access Forbidden', 1083403);
+    throw new innoError403Exception('Error: Page Access Forbidden', 1083403);
 }
 
 function forwardTo401Unless($cond)
 {
   if(!$cond)
-    throw new Error403Exception('Error: Page Access Forbidden', 1083403);
+    throw new innoError403Exception('Error: Page Access Forbidden', 1083403);
 }
 /* unless conditions to forward to error */

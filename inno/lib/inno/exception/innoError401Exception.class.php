@@ -11,7 +11,7 @@
  *
  */
 
-class Error401Exception extends Exception
+class innoError401Exception extends Exception
 {
     public function __construct($message, $code = 0) {
         parent::__construct($message, $code);

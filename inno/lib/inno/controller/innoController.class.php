@@ -131,9 +131,7 @@ class innoController
     $inno_request->setAction($inno_route[1]);
 
     unset($inno_route);
-*/
 
-/*
     // if the action doesnt exist revert to the error404 action
     if (!file_exists($inno_action))
     {
@@ -166,21 +164,21 @@ class innoController
       
       include_once($inno_action);
     }
-    catch(Error404Exception $e)
+    catch(innoError404Exception $e)
     {
       $this->getRouting()->setModule('default');
       $this->getRouting()->setAction('error404');
       $inno_action = sprintf(innoDir::get('MODULE_ACTION'), $this->getRouting()->getModule()).'error404.action.php';
       include_once($inno_action);  
     }
-    catch(Error403Exception $e)
+    catch(innoError403Exception $e)
     {
       $this->getRouting()->setModule('default');
       $this->getRouting()->setAction('error403');
       $inno_action = sprintf(innoDir::get('MODULE_ACTION'), $this->getRouting()->getModule()).'error403.action.php';
       include_once($inno_action);  
     }
-    catch(Error401Exception $e)
+    catch(innoError401Exception $e)
     {
       $this->getRouting()->setModule('default');
       $this->getRouting()->setAction('error401');

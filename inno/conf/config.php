@@ -68,3 +68,4 @@ else if(isset($_SERVER['PATH_INFO']))
 innoController::setRequest(new innoRequest());
 innoController::setRouting(new innoRouting(innoConfig::get('inno_routing_rules'), $url));
 innoController::setCache($inno_cache);
+

@@ -32,7 +32,7 @@ class innoCache
   public function isTmpltCached()
   {
     if (DEBUG) return false;
-    /*
+    
     if (innoConfig::hasFlushable('inno_routing_url_life'))
     {
       if (innoConfig::getFlushable('inno_routing_url_life') >= innoConfig::get('min_template_life'))
@@ -48,14 +48,15 @@ class innoCache
         if ($time_diff > 0 && $time_diff <= innoConfig::getFlushable('inno_routing_url_life'))
           return true;
         
+        innoConfig::setFlushable('inno_cache_schedule_caching', true);
         return false;
       }
       return false;
     }
-    */
+/*
     if (file_exists(innoDir::get('CACHE_TMPLT').str_replace('/', '-', innoConfig::getFlushable('inno_routing_url_base')).'.tmplt'))
       return true;
-    
+*/    
     return false;
   }
   
@@ -72,6 +73,8 @@ class innoCache
   {
     if (DEBUG) return null;
     
+    return $this->getCache(innoDir::get('CACHE_TMPLT').str_replace('/', '-', innoConfig::getFlushable('inno_routing_url_base')).'.tmplt', 'tmplt');
+    /*
     if (innoConfig::hasFlushable('inno_routing_url_life'))
     {
       if (innoConfig::getFlushable('inno_routing_url_life') >= innoConfig::get('min_template_life'))
@@ -84,6 +87,7 @@ class innoCache
         {
           return $this->getCache(innoDir::get('CACHE_TMPLT').str_replace('/', '-', innoConfig::getFlushable('inno_routing_url_base')).'.tmplt', 'tmplt');
         }
+        
         innoConfig::setFlushable('inno_cache_schedule_caching', true);
         return null;
         //else if ($time_diff > innoConfig::getFlushable('inno_routing_url_life') && innoConfig::getFlushable('inno_routing_url_life') >= innoConfig::get('min_template_life'))
@@ -91,13 +95,14 @@ class innoCache
     }
     
     return null;
+    */
   }
   
   public function dumpConfig()
   {
     if (DEBUG) return null;
     
-    if (file_exists(innoDir::get('CACHE_CONF')) && is_writable($this->cache_dir))
+    if (file_exists(innoDir::get('CACHE_CONF')) && is_writable($this->cache_dir) && !file_exists(innoDir::get('CACHE_CONF').'innoconfig.php')))
     {
       $conf = var_export(innoConfig::getAll(), true);
       $config = "<?php\ninnoConfig::addFromCache(".$conf.");";
@@ -110,6 +115,9 @@ class innoCache
   public function dumpTemplate($template)
   {
     if (DEBUG) return null;
+    
+    if (!(innoConfig::getFlushable('inno_cache_schedule_caching')))
+      return null;
     
     if (file_exists(innoDir::get('CACHE_TMPLT')) && is_writable($this->cache_dir))
     {

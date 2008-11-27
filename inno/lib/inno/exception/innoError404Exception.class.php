@@ -1,6 +1,6 @@
 <?php  if ( ! defined('LIB')) exit('Direct script access is not allowed!');
 /*
- * Emulate error403 "Forbidden"
+ * Emulate error404 "Not Found"
  * 
  * @author:  Orlino L. Monares Jr. <anxietylost110987@gmail.com, orlino_monares110987@yahoo.com>
  *
@@ -11,7 +11,7 @@
  *
  */
 
-class Error403Exception extends Exception
+class innoError404Exception extends Exception
 {
     public function __construct($message, $code = 0) {
         parent::__construct($message, $code);
