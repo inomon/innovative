@@ -59,7 +59,7 @@ function style_tag($style, $details = array())
 
 function _tag_details($tag_type, $details)
 {
-  $special_attr = array('confirm', 'tooltip');
+  $special_attr = array('confirm', 'tooltip', 'submit_to_ajax');
   $tag = '';
   foreach ($details as $attr => $property)
   {
@@ -71,6 +71,17 @@ function _tag_details($tag_type, $details)
   if(array_key_exists('confirm', $details))
   {
     $tag .= " onclick=\"if(confirm('".$details['confirm']."'')){return true;}else{return false;}\"";
+  }
+  if(array_key_exists('submit_to_ajax', $details) && $tag_type != 'input.submit')
+  {
+    _submit_form_to_ajax($details['submit_to_ajax']);
+  }
+  if($tag_type == 'input.submit')
+  {
+    if(array_key_exists('submit_to_ajax', $details))
+      $tag .= ' type="button" onclick="'._submit_form_to_ajax(null, true).'"';
+    else 
+      $tag .= ' type="submit" ';
   }
   
   return $tag;

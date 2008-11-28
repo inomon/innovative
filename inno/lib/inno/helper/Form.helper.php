@@ -11,7 +11,7 @@
  */
 
 /*
- * Creates a textbox input with options for a tooltip
+ * Creates a smart input textbox
  * 
  * @param: name     The [name] of the textbox, also associated with its [id]
  * @param: details  The details pertaining to the textbox; [class], [style], tooptip, etc.
@@ -20,37 +20,13 @@
  */
 function textbox($name, $details = array())
 {
-  $textbox = '<input type="text" name="'.$name.'" id="'.$name.'"';
-  foreach ($details as $attr => $property)
-  {
-    if ($attr != 'tooltip' && $attr != 'form_name')
-      $textbox .= ' '.$attr.'="'.$property.'"';      
-  }
-  
-  if(array_key_exists('tooltip', $details))
-  {
-    if(array_key_exists('class', $details))
-      $textbox = str_replace('class="'.$details['class'].'"', 'class="'.$details['class'].' tooltip"', $textbox);
-    else
-      $textbox .= ' class="tooltip"';
-      
-    $textbox .= ' title="'.$details['tooltip'].'" />';
-    $textbox .= script_tag("
-$$('form input.tooltip').each( function(input) {
-  new Tooltip(input, {});
-});
-    ");
-  }
-  else
-  {
-    $textbox .= '/>';
-  }
+  $textbox = '<input type="text" name="'.$name.'" id="'.$name.'"'._tag_details('input.textbox', $details).'/>';
 
   return $textbox;
 }
 
 /*
- * Creates a form initialization tag
+ * Creates a smart form initialization tag
  * 
  * @param: url      The url to target the form [action]
  * @param: method   The request method: POST || GET
@@ -58,20 +34,13 @@ $$('form input.tooltip').each( function(input) {
  */
 function form($url, $method = "post", $details = array())
 {
-  $form = '<form action="'.$url.'" method="'.$method.'"';
-  foreach ($details as $attr => $property)
-  {
-    if($attr!='submit_to_ajax')
-      $form .= ' '.$attr.'="'.$property.'"';
-    else
-      _submit_form_to_ajax($property);
-  }
-  $form .= '/>';
+  $form = '<form action="'.$url.'" method="'.$method.'"'._tag_details('form', $details).'>';
+  
   echo $form;
 }
 
 /*
- * Creates a submit button 
+ * Creates a smart submit button 
  * 
  * @param: name     The [name] of the button, also associated with its [id]
  * @param: details  The details pertaining to the button; class, style, tooptip, etc.
@@ -80,26 +49,13 @@ function form($url, $method = "post", $details = array())
  */
 function submit_tag($name, $details = array())
 {
-  $is_submitted_to_ajax = false;
-  $submit = '<input name="'.$name.'" id="'.$name.'"';
-  foreach ($details as $attr => $property)
-  {
-    if($attr!='submit_to_ajax')
-      $submit .= ' '.$attr.'="'.$property.'"';
-    else
-      $is_submitted_to_ajax = true;
-  }
-  if(!$is_submitted_to_ajax)
-    $submit .= ' type="submit" ';
-  else
-    $submit .= ' type="button" onclick="'._submit_form_to_ajax(null, true).'"';
-  $submit .= '/>';
+  $submit = '<input name="'.$name.'" id="'.$name.'"'._tag_details('input.submit', $details).'/>';
   
   return $submit;
 }
 
 /*
- * Creates a form termination tag
+ * Creates a smart form termination tag
  * 
  */
 function end_form($name, $details = array())
