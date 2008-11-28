@@ -16,4 +16,39 @@ class innoDirectoryCrawler
   {
     
   }
+  
+  public static function listDir($directory)
+  {
+    if(!is_dir($directory))
+      return false;
+    
+    $files = scandir($directory);
+    $dir_list = array();
+    
+    foreach($files as $file)
+    {
+      if(is_dir($directory.DIR_SEP.$file))
+        $dir_list[] = $file;
+    }
+    
+    return ((count($dir_list)>0) ? $dir_list : 0 );
+  }
+  
+  
+  public static function listFiles($directory)
+  {
+    if(!is_dir($directory))
+      return false;
+    
+    $files = scandir($directory);
+    $dir_list = array();
+    
+    foreach($files as $file)
+    {
+      if(is_file($directory.DIR_SEP.$file))
+        $dir_list[] = $file;
+    }    
+    
+    return ((count($dir_list)>0) ? $dir_list : 0 );
+  }
 }

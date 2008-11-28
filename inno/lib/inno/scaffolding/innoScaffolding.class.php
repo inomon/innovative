@@ -44,29 +44,37 @@ class innoScaffolding
   {
     switch($this->scaffold_type)
     {
-      case 'create':
-        $this->createScaffold();
+      case 'insert':
+        $this->insertScaffold();
         break;
-      case 'list':
-        $this->listScaffold();
+      case 'update':
+        $this->updateScaffold();
         break;
       case 'delete':
         $this->deleteScaffold();
         break;
+      case 'list':
+        $this->listScaffold();
+        break;
     }
   }
   
-  protected function createScaffold()
+  protected function insertScaffold()
   {
     
   }
   
-  protected function listScaffold()
+  protected function updateScaffold()
   {
     
   }
   
   protected function deleteScaffold()
+  {
+    
+  }
+  
+  protected function listScaffold()
   {
     
   }

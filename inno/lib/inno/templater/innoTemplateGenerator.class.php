@@ -26,11 +26,11 @@ class innoTemplateGenerator extends innoGenerator
   
   public function generateTemplateFile()
   {
-    
+    $this->generateFile();
   }
   
   public function generateComponentFile()
   {
-    
+    $this->generateFile();
   }
 }

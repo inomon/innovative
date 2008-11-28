@@ -39,11 +39,15 @@ class innoGenerator
     return file_exists($this->directory);
   }
   
-  public function generateFile($file_content)
+  public function generateFile($file_name, $file_content)
   {
     if(!($this->isExisting() && $this->isWritable()))
       return false;
     
+    $fp = fopen($this->getDirectory().DIR_SEP.$file_name, 'w');
+    fwrite($fp, $file_content);
+    fclose($fp);
     
+    return file_exists($this->getDirectory().DIR_SEP.$file_name);
   }
 }
