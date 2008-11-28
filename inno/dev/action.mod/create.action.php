@@ -1,11 +1,11 @@
 <?php
 if(!$inno_request->isAjaxRequest())
-  $inno_request->forwardToSecure();
+  $this->getRequest()->forwardTo403();
   
-$name = $inno_request->getParam('name');
+$name = $inno_request->get('name');
 $create_new = false;
 
-if ($inno_request->getParam('submit') != null && !$name)
+if ($inno_request->get('submit') != null && !$name)
 {
   $create_new = true;
 }

@@ -17,7 +17,7 @@ class innoRouting
   protected $route_alias = '';
   protected $module_name = '';
   protected $action_name = '';
-  // @todo: [DEPRECATED] to be deleted
+  // @todo: [DEPRECATED] to be deleted, check for code dependencies
   protected $route_base = '';
   
   // mutators: module
@@ -41,36 +41,13 @@ class innoRouting
   {
     $this->action_name = $act;
   }
-
-  // mutators: route 
-  // @todo: test for dependencies, [DEPRECATED]
-  public static function setRoute($route)
-  {
-    return array_search($route, $this->routes);
-  }
-  
-  
-  // @todo: test for dependencies, [DEPRECATED]
-  public function getRoute()
-  {
-    foreach($this->routes as $route)
-    {
-      if(!(strpos($url, $this->routes[$route]['url']) === false))
-      {
-        $this->setModule($this->routes[$route]['module']);
-        $this->setAction($this->routes[$route]['action']);
-      }
-    }
-
-    return $this->routes[$route];
-  }
   
   public function getRouteAlias()
   {
     return $this->route_alias;
   }
   
-  public function init($url)
+  public function initializeRoute($url)
   {
     foreach($this->routes as $alias => $details)
     {
@@ -121,7 +98,7 @@ class innoRouting
   {
     $this->clearRoutes();
     $this->routes = $routes;
-    $this->init($url);
+    $this->initializeRoute($url);
   }
   
   public function clearRoutes()

@@ -1,6 +1,6 @@
 <pre>
-<?php echo $inno_request->getParam('module')."\n" ?>
-<?php echo $inno_request->getParam('action')."\n" ?>
+<?php echo $inno_request->get('module')."\n" ?>
+<?php echo $inno_request->get('action')."\n" ?>
 module: action
 action: rename
 </pre>

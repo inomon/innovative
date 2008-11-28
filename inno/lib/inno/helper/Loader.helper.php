@@ -25,6 +25,7 @@ function load_helper()
     else 
       die('This helper doesnt exist: '.$file);
   }
+  return;
 }
 
 function load_class()
@@ -50,6 +51,7 @@ function load_class()
     else 
       die('This class doesnt exist: '.$file);
   }
+  return;
 }
 
 function load_custom_helper()
@@ -82,6 +84,7 @@ function load_custom_helper()
       include_once(LIB.DIR_SEP.(($loc) ? $loc.DIR_SEP : '').$helper.'.helper.php');
   }
   */
+  return;
 }
 
 // @todo: for usage development/testing 
@@ -101,12 +104,12 @@ function load_custom_class($classes = null, $loc = '')
     foreach ($classes as $class)
       include_once(LIB.DIR_SEP.(($loc) ? $loc.DIR_SEP : '').$class.'.class.php');
   }
-
+  return;
 }
 
 
 // @todo: add an exception/error try-catch block when a component wants to throw that exception/error
-function load_component($module, $component, $include_action = true)
+function load_component($module, $component, $include_action = true, $component_values = array())
 {
   $cmp_tmplt = sprintf(innoDir::get('MODULE_TMPLT'), $module).$component.'.comp.tmplt.php';
   if($include_action)
@@ -134,6 +137,12 @@ function load_component($module, $component, $include_action = true)
     }
   }  
   /* end DEPRECATION MARK */
+  
+  if(count($component_values) > 0 && !is_null($component_values))
+  {
+    foreach($component_values as $val_name, $val_content)
+      $$val_name = $val_content;
+  }
   
   if($include_action)
     include_once($cmp);

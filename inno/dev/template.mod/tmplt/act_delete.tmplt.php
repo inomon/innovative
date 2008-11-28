@@ -1,6 +1,6 @@
 <pre>
-<?php echo $inno_request->getParam('module')."\n" ?>
-<?php echo $inno_request->getParam('template')."\n" ?>
+<?php echo $inno_request->get('module')."\n" ?>
+<?php echo $inno_request->get('template')."\n" ?>
 module: template
 action: act_delete
 </pre>

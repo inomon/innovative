@@ -10,77 +10,69 @@
  *
  */
 
+// function for creating an image tag
 function image_tag($img,  $details = array())
 {
-  $tag = '<img src='."\"/".innoDir::get('ASSETS').'img/'.$img."\"";
-  foreach ($details as $attr => $property)
-  {
-    $tag = $tag.' '.$attr."=\"".$property."\"";
-  }
-  $tag = $tag.'>';
+  $tag = '<img src='."\"/".innoDir::get('ASSETS').'img/'.$img."\""._tag_details('img', $details).'>';
   return $tag;
 }
 
+// function for creating a smart link tag
 function link_tag($name, $link = '', $details = array())
 {
-  if (!(strstr($link, '~') === false)) 
+  $routing_rules = innoConfig::get('inno_routing_rules');
+  $new_link = $link;
+  
+  if(strpos($link, '~') !== false)
   {
-    if (!(strstr($link, '?') === false)) 
-    {
-      $links = explode('?', $link);
-      $link = '?go='.Routing::setRoute(substr($links[0], 1)).'&'.$links[1];
-    }
-    else 
-      $link = '?go='.substr($link, 1);
-      //$link = '?go='.$link.Routing::setRoute(substr($link, 1));
+    $alias = substr($link, 1, ((strpos($link, '?')!==false) ? strpos($link, '?')-1 : strlen($link) ))
+    $new_link = $routing_rules[$alias];
   }
   
-  $tag = '<a href="'.$link.'"';
-  foreach ($details as $attr => $property)
-  {
-    if ($attr != 'tooltip')
-      $tag .= ' '.$attr.'="'.$property.'"';
-  }
+  if (!(strpos($link, '~') !== false)) 
+    $new_link .= substr($link, (strpos($link, '?'), strlen($link));
   
-  if(array_key_exists('tooltip', $details))
-  {
-    if(array_key_exists('class', $details))
-      $tag = str_replace($tag, 'class="'.$details['class'].' tooltip"', 'class="'.$details['class'].'"');
-    else
-      $tag .= ' class="tooltip"';
-      
-    $tag .= ' title="'.$details['tooltip'].'">';
-    $tag .= script_tag("
-$$('body a.tooltip').each( function(link) {
-  new Tooltip(link, {});
-});
-    ");
-  }
-  else
-    $tag .= '>';  
-  $tag .= $name.'</a>';
+  $tag = '<a href="'.$new_link.'"'._tag_details('a', $details);
+  $tag .= '>';
+  
+  // perform garbage collection
+  unset($routing_rules, $new_link, $details, $name, $link);
+  
   return $tag;
 }
 
 function script_tag($script, $details = array())
 {
-  $tag = '<script type='."\"text/javascript\"";
-  foreach ($details as $attr => $property)
-  {
-    $tag = $tag.' '.$attr."=\"".$property."\"";
-  }
-  $tag = $tag.'>'.$script.'</script>';
+  $tag = '<script type='."\"text/javascript\""._tag_details('script', $details);
+  
+  $tag .= '>'.$script.'</script>';
   return $tag;
 }
 
 function style_tag($style, $details = array())
 {
-  $tag = '<style type='."\"text/css\"";
+  $tag = '<style type='."\"text/css\""._tag_details('style', $details);
+  
+  $tag .= '>'.$style.'</style>';
+  return $tag;
+}
+
+function _tag_details($tag_type, $details)
+{
+  $special_attr = array('confirm', 'tooltip');
+  $tag = '';
   foreach ($details as $attr => $property)
   {
-    $tag = $tag.' '.$attr."=\"".$property."\"";
+    if(array_search($attr, $special_attr) === false)
+      $tag .= ' '.$attr."=\"".$property."\"";
+  }  
+  
+  // @todo: create an algo, for binding a confirm[onlick] function into an object
+  if(array_key_exists('confirm', $details))
+  {
+    $tag .= " onclick=\"if(confirm('".$details['confirm']."'')){return true;}else{return false;}\"";
   }
-  $tag = $tag.'>'.$style.'</style>';
+  
   return $tag;
 }
 

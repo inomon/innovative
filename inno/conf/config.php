@@ -1,18 +1,9 @@
 <?php  if ( ! defined('LIB')) exit('Direct script access is not allowed!');
 
 // @todo: check where the libraries are needed for them to be included in the include_path
-// if server is not windows
-if (stripos($_SERVER["DOCUMENT_ROOT"], ':') === false)
-{
-  set_include_path(realpath(dirname(__FILE__).DIR_SEP.'..'.DIR_SEP.'lib'.DIR_SEP.'classes').':'.get_include_path());
+set_include_path(realpath(dirname(__FILE__).DIR_SEP.'..'.DIR_SEP.'lib'.DIR_SEP.'classes').((stripos($_SERVER["DOCUMENT_ROOT"], ':') === false) ? ':' : ';').get_include_path());
 //  set_include_path(realpath(dirname(__FILE__).DIR_SEP.'..'.DIR_SEP.'lib'.DIR_SEP.'classes').':'.realpath(dirname(__FILE__).DIR_SEP.'..'.DIR_SEP.'lib'.DIR_SEP.'classes').':'. get_include_path());
-}
-// if server is windows
-else 
-{
-  set_include_path(realpath(dirname(__FILE__).DIR_SEP.'..'.DIR_SEP.'lib'.DIR_SEP.'classes').';'.get_include_path());
-//  set_include_path(realpath(dirname(__FILE__).DIR_SEP.'..'.DIR_SEP.'lib'.DIR_SEP.'classes').';'.realpath(dirname(__FILE__).DIR_SEP.'..'.DIR_SEP.'lib'.DIR_SEP.'classes').';'. get_include_path());
-}
+
 
 if(DEBUG)
   error_reporting(E_ALL | E_STRICT);

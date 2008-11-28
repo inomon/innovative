@@ -23,28 +23,13 @@ class innoRequest
   protected $request_params = array();
   protected $request_method = self::NONE;
   
-  public function isAjaxRequest()
+  public function __construct()
   {
-    return (array_key_exists('HTTP_X_REQUESTED_WITH', $_SERVER));
+    $this->setMethod();
+    $this->initializeParameters();
   }
-  /*
-  public function getParams()
-  {
-    if($this->request_method == self::POST)
-      return $this->request_params;
-    else if ($this->request_method == self::GET)
-      return $this->request_params;
-    else if ($this->request_method == self::PUT)
-      return 'put';
-    else if ($this->request_method == self::DELETE)
-      return 'delete';
-    else if ($this->request_method == self::HEAD)
-      return 'head';
-    else
-      return 'none';
-  }
-  */
-  public function setParams()
+  
+  public function initializeParameters()
   {
     if($this->request_method == self::POST || $this->request_method == self::GET){
       
@@ -124,9 +109,6 @@ class innoRequest
             }
           }
         }
-
-//        for($i = 2; $i < $num_param; $i += 2) 
-//          $this->request_params[$vardata[$i]] = $vardata[$i+1];
       }
       
       if(isset($_SERVER['QUERY_STRING']))
@@ -148,26 +130,31 @@ class innoRequest
           $this->request_params[$param] = $value;
         }
       }
-//      var_dump($this->request_params);
-//      die();      
-      return true;
+         
+      return;
     }else if ($this->request_method == self::PUT){
-      return false;
+      return;
     }else if ($this->request_method == self::DELETE){
-      return false;
+      return;
     }else if ($this->request_method == self::HEAD){
-      return false;
+      return;
     }else{
-      return false;
+      return;
     }
   }
   
-  public function getParam($param, $default = null)
+  // check if a request is sent via XMLHttpRequest
+  public function isAjaxRequest()
+  {
+    return (array_key_exists('HTTP_X_REQUESTED_WITH', $_SERVER));
+  }
+  
+  public function get($param, $default = null)
   {
     if($this->request_method == self::POST){
-      return $this->request_params[$param];
+      return ((array_key_exists($param, $this->request_params)) ? $this->request_params[$param] : $default );
     }else if ($this->request_method == self::GET){
-      return $this->request_params[$param];
+      return ((array_key_exists($param, $this->request_params)) ? $this->request_params[$param] : $default );
     }else if ($this->request_method == self::PUT){
       return $default;
     }else if ($this->request_method == self::DELETE){
@@ -179,26 +166,14 @@ class innoRequest
     }
   }
   
-  public function hasParam($param)
+  public function set($param, $value)
   {
-    if ($_POST[$param])
-    {
-      return true;
-    }
-    else if ($_GET[$param])
-    {
-      return true;
-    }
-    else 
-    {
-      return false;
-    }
+    $this->request_params[$param] = $value;
   }
   
-  public function __construct()
+  public function has($param)
   {
-    $this->setMethod();
-    $this->setParams();
+    return array_key_exists($param, $this->request_params);
   }
   
   public function setMethod()
@@ -237,6 +212,25 @@ class innoRequest
   {
     return $this->request_params;
   }
+  
+  /* request redirection methods */
+  public function redirect($url)
+  {
+    header('Location: '.$url);
+  }
+  
+  public function redirectIf($cond, $url)
+  {
+    if($cond)
+      header('Location: '.$url);
+  }
+  
+  public function redirectUnless($cond, $url)
+  {
+    if(!$cond)
+      header('Location: '.$url);
+  }
+  /* request redirection methods */
   
   /* conventional forward to errors */
   public function forwardTo404()

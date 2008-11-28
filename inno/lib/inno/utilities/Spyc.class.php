@@ -80,7 +80,7 @@
      * @return array
      * @param string $input Path of YAML file or string containing YAML
      */
-    function YAMLLoad($input) {
+    static function YAMLLoad($input) {
       $spyc = new Spyc;
       return $spyc->load($input);
     }
@@ -105,7 +105,7 @@
      * @param int $indent Pass in false to use the default, which is 2
      * @param int $wordwrap Pass in 0 for no wordwrap, false for default (40)
      */
-    function YAMLDump($array,$indent = false,$wordwrap = false) {
+    static function YAMLDump($array,$indent = false,$wordwrap = false) {
       $spyc = new Spyc;
       return $spyc->dump($array,$indent,$wordwrap);
     }

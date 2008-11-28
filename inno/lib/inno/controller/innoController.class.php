@@ -66,6 +66,23 @@ class innoController
   }
   /* mutators for objects used in the page */
   
+  /* redirection methods */
+  public function redirect($url)
+  {
+    $this->getRequest()->redirect($url);
+  }
+  
+  public function redirectIf($cond, $url)
+  {
+    $this->getRequest()->redirect($cond, $url);
+  }
+  
+  public function redirectUnless($cond, $url)
+  {
+    $this->getRequest()->redirect($cond, $url);
+  }
+  /* request redirection methods */
+  
   /* conventional forward to errors */
   public function forwardTo404()
   {
@@ -86,40 +103,34 @@ class innoController
   /* if conditions to forward to error */
   public function forwardTo404If($cond)
   {
-    if($cond)
-      $this->getRequest()->forwardTo404();
+    $this->getRequest()->forwardTo404If($cond);
   }
 
   public function forwardTo403If($cond)
   {
-    if($cond)
-      $this->getRequest()->forwardTo403();
+    $this->getRequest()->forwardTo403If($cond);
   }
 
   public function forwardTo401If($cond)
   {
-    if($cond)
-      $this->getRequest()->forwardTo401();
+    $this->getRequest()->forwardTo401If($cond);
   }
   /* if conditions to forward to error */
 
   /* unless conditions to forward to error */
   public function forwardTo404Unless($cond)
   {
-    if(!$cond)
-      $this->getRequest()->forwardTo404();
+    $this->getRequest()->forwardTo404Unless($cond);
   }
 
   public function forwardTo403Unless($cond)
   {
-    if(!$cond)
-      $this->getRequest()->forwardTo403();
+    $this->getRequest()->forwardTo403Unless($cond);
   }
 
   public function forwardTo401Unless($cond)
   {
-    if(!$cond)
-      $this->getRequest()->forwardTo401();
+    $this->getRequest()->forwardTo401Unless($cond);
   }
   /* unless conditions to forward to error */
   
@@ -156,33 +167,11 @@ class innoController
   
   public function run()
   {
-/*
-    // initialize Request();
-    global $inno_request, $inno_routing;
-    $inno_request = new innoRequest();
-    $inno_action_param = $GLOBALS['inno_action_param'];
-    $inno_routing = new innoRouting(Spyc::YAMLLoad($inno_routing_dir));
-    $inno_route = explode(' ', $inno_routing->route($this->getRequest()->getRoute($inno_action_param, 'homepage')));
-
-    $inno_request->setModule($inno_route[0]);
-    $inno_request->setAction($inno_route[1]);
-
-    unset($inno_route);
-
-    // if the action doesnt exist revert to the error404 action
-    if (!file_exists($inno_action))
-    {
-      $this->getRequest()->setModule('default');
-      $this->getRequest()->setAction('error404');
-      $inno_action = sprintf(innoDir::get('MODULE_ACTION'), $this->getRequest()->getModule()).$this->getRequest()->getAction().'.action.php';
-    }
-*/   
-
     if ($this->getCache()->isTmpltCached())
     {
       echo $this->getCache()->loadTemplate();
       
-      // @todo: (arguable statement) check if this will optimize the code/application of slow it down
+      // @todo: (arguable statement) check if this will optimize the code/application or slow it down
       $this->getCache()->dumpConfig();
       return;
     }
@@ -192,6 +181,8 @@ class innoController
     $inno_layout = 'layout';
     $inno_template = 'template';
     $inno_forward_action = false;
+    
+    // wrap action execution in 
     do
     {
 
@@ -274,7 +265,7 @@ class innoController
       $this->getCache()->dumpTemplate($inno_layout);
     }
     
-    // @todo: (arguable statement) check if this will optimize the code/application of slow it down
+    // @todo: (arguable statement) check if this will optimize the code/application or slow it down
     $this->getCache()->dumpConfig();
     
     return;
