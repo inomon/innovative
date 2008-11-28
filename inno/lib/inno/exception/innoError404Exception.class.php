@@ -1,11 +1,11 @@
 <?php  if ( ! defined('LIB')) exit('Direct script access is not allowed!');
 /*
  * Emulate error404 "Not Found"
- * 
- * @author:  Orlino L. Monares Jr. <anxietylost110987@gmail.com, orlino_monares110987@yahoo.com>
+ * class: innoError404Exception
  *
- * @package:
- * @subpackage:
+ * @author:     Orlino L. Monares Jr. <anxietylost110987@gmail.com, orlino_monares110987@yahoo.com>
+ * @package:    inno
+ * @subpackage: exception
  *
  * @todo: _____________
  *

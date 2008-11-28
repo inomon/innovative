@@ -1,10 +1,10 @@
 <?php  if ( ! defined('LIB')) exit('Direct script access is not allowed!');
 /*
+ * class: innoController
  *
- * @author:  Orlino L. Monares Jr. <anxietylost110987@gmail.com, orlino_monares110987@yahoo.com>
- *
- * @package:
- * @subpackage:
+ * @author:     Orlino L. Monares Jr. <anxietylost110987@gmail.com, orlino_monares110987@yahoo.com>
+ * @package:    inno
+ * @subpackage: controller
  *
  * @todo: _____________
  *
@@ -134,7 +134,7 @@ class innoController
   }
   /* unless conditions to forward to error */
   
-  /* skipping to action commands: basic, if, unless */
+  /* skipping to action commands: basic, if & unless */
   public function skipAction($module, $action)
   {
     $this->getRouting()->setModule($module);
@@ -164,6 +164,7 @@ class innoController
       throw new innoSkipActionException('Skip action to; module:'.$module.' action:'.$action);
     }
   }
+  /* skipping to action commands: basic, if & unless */
   
   public function run()
   {
@@ -182,7 +183,7 @@ class innoController
     $inno_template = 'template';
     $inno_forward_action = false;
     
-    // wrap action execution in 
+    // wrap action execution in a loop to enable action skipping
     do
     {
 
@@ -248,10 +249,8 @@ class innoController
     else
     {
       // initialize view components
-      //innoRenderer::iniTemplate();
       innoRenderer::iniHeaders();
-      //innoRenderer::iniLayout();
-
+      
       ob_start();
       include_once(innoDir::get('MODULE').$inno_layout.'.php');
       $inno_layout = ob_get_contents();
