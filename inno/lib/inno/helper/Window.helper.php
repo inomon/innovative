@@ -1,6 +1,6 @@
 <?php  if ( ! defined('LIB')) exit('Direct script access is not allowed!');
 /*
- * helper: Widget
+ * helper: Window
  *
  * @author:     Orlino L. Monares Jr. <anxietylost110987@gmail.com, orlino_monares110987@yahoo.com>
  * @package:    inno
@@ -10,34 +10,45 @@
  *
  */
 
-function initialize()
+function initializeWindow()
 {
   add_proto_window_type('default', null);
 }
 
-function proto_window($url, $method, $header)
+function window($window_type, $url, $method, $header)
 {
-  return "showWindow('".((APPLI!='fro') ? $_SERVER['PHP_SELF'].'/' : '').$url."', '".$method."', '".$header."')";
+  return _window($window_type, $url, $method, $header);
 }
 
-function proto_window_modal($url, $method, $header)
-{
-  return "showModalWindow('".((APPLI!='fro') ? $_SERVER['PHP_SELF'].'/' : '').$url."', '".$method."', '".$header."')";
-}
-
-function proto_window_mgr($url, $method, $header)
-{
-  return "showWinlets('".((APPLI!='fro') ? $_SERVER['PHP_SELF'].'/' : '').$url."', '".$method."', '".$header."')";
-}
-
-function add_proto_window_type($type, $details = array())
+function add_window_type($type, $details = array())
 {
   innoAssets::addScriptHead(_window_type($type, $details));
 }
 
-function rem_proto_window_type($type, $details = array())
+function rem_window_type($type, $details = array())
 {
   innoAssets::remScriptHead(_window_type($type, $details));
+}
+
+function _window($window_type, $url, $method, $header)
+{
+  switch ($window_type)
+  {
+    case 'default':
+      return "showWindow('".((APPLI!='fro') ? $_SERVER['PHP_SELF'].'/' : '').$url."', '".$method."', '".$header."')";
+      break;
+    case 'modal':
+      return "showModalWindow('".((APPLI!='fro') ? $_SERVER['PHP_SELF'].'/' : '').$url."', '".$method."', '".$header."')";
+      break;
+    case 'windowmanager':
+      return "showWinlets('".((APPLI!='fro') ? $_SERVER['PHP_SELF'].'/' : '').$url."', '".$method."', '".$header."')";
+      break;
+    default:
+      die('window: '.$window_type.' doesnt exist, please provide correct type.');
+      break;
+  }
+  
+  return;
 }
 
 function _window_type($type, $details = array())
