@@ -46,35 +46,12 @@ class innoRenderer
   {
     return self::$headers;
   }
-  
-  /*
-   * deprecated
-   */
-  public static function iniTemplate()
-  {
-    ob_start();
-    include_once MODULES.DIR_SEP.$inno_request->getModule().'.mod'.DIR_SEP.'tmplt'.DIR_SEP.$inno_request->getAction().'.tmplt.php';
-    self::$template = ob_get_contents();
-    ob_end_clean();
-  }
-  
-  /*
-   * deprecated
-   */
-  public static function iniLayout($layout = 'layout')
-  {
-    ob_start();
-    include_once MODULES.DIR_SEP.$layout.'.php';
-    self::$layout = ob_get_contents();
-    ob_end_clean();
-  }
 
   public static function iniHeaders()
   {
     self::$headers = "\n";
     
     // set document metas
-    //<meta name="author" content="Tom@Lwis (http://www.lwis.net/free-css-drop-down-menu/)" /> 
     $hdr_cnfg = innoConfig::getConfgWithKey('web_metas_', true);
     self::$headers = self::$headers.'<title>'.$hdr_cnfg['title'].'</title>'."\n";      
     foreach ($hdr_cnfg as $key => $config)
@@ -83,7 +60,6 @@ class innoRenderer
     }    
     
     // set http metas
-    //<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
     $hdr_cnfg = innoConfig::getConfgWithKey('web_http_metas_', true);
     foreach ($hdr_cnfg as $key => $config)
     {
@@ -91,7 +67,6 @@ class innoRenderer
     }
     
     // set stylesheets
-    //<link href="css/dropdown/dropdown.css" media="all" rel="stylesheet" type="text/css" /> 
     $hdr_cnfg = innoConfig::getConfgWithKey('web_stylesheets', true);
     foreach ($hdr_cnfg as $key => $config)
     {
@@ -99,7 +74,6 @@ class innoRenderer
     }
     
     // set javascripts
-    //<script type="text/javascript" src="js/jquery/jquery.js"></script>
     $hdr_cnfg = innoConfig::getConfgWithKey('web_javascripts', true);
     foreach ($hdr_cnfg as $key => $config)
     {
@@ -109,9 +83,11 @@ class innoRenderer
     // set favicon
     self::$headers = self::$headers."<link rel=\"shortcut icon\" href=\"/".innoConfig::get('web_favicon').".ico\" />\n";
     
+    // set scripts, in the header
     if (innoAssets::getScriptHead() != '') 
-      self::$headers = self::$headers.'<script type="text/javascript">'.innoAssets::getScriptHead().'</script>'."\n";
+      self::$headers = self::$headers.script_tag(innoAssets::getScriptHead())."\n";
     
+    // set styles, in the header
     if (innoAssets::getStyleHead() != '') 
       self::$headers = self::$headers.style_tag(innoAssets::getStyleHead())."\n";
        

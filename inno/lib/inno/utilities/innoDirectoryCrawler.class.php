@@ -17,6 +17,61 @@ class innoDirectoryCrawler
     
   }
   
+  /*
+   * 
+   */
+  protected static function pruneTree($tree)
+  {
+    unset($tree[0]);
+    unset($tree[1]);
+    
+    return $tree;
+  }
+  
+  /*
+   * 
+   */
+  protected static function buildTree($directory, $files)
+  {
+    $files = self::pruneTree($files);
+    
+    foreach ($files as $index => $file)
+    {
+      if(is_dir($directory.DIR_SEP.$file))
+      {
+        unset($files[$index]);
+        $files[$file] = self::buildTree($directory, scandir($directory.DIR_SEP.$file));
+      }
+    }
+    
+    return $files;
+  }
+  
+  /*
+   * @description: build a directory array, with branchings/sub-directories based on the passed path
+   * @param: directory
+   * @return: false if directory is not a valid directory path, the files & directories array if there are & 0 if there are none 
+   */
+  public static function directoryTree($directory)
+  {
+    if(!is_dir($directory))
+      return false;
+    
+    $separator_position = strrpos($directory, ((stripos($_SERVER['DOCUMENT_ROOT'], ':') === false) ? "/" : "\\"));
+    if ($separator_position == (strlen($directory)-1))
+      $directory .= substr($directory, 0, $separator_position-1);
+    
+    $files = scandir($directory);
+    $files = self::buildTree($directory, $files);
+    array_multisort($files, SORT_ASC, SORT_STRING);
+    
+    return ((count($files)>0) ? $files : 0 );
+  }
+  
+  /*
+   * @param: directory
+   * @return: false if directory is not a valid directory path, the directory array if there are directories & 0 if there are none 
+   */
   public static function listDir($directory)
   {
     if(!is_dir($directory))
@@ -30,25 +85,30 @@ class innoDirectoryCrawler
       if(is_dir($directory.DIR_SEP.$file))
         $dir_list[] = $file;
     }
+    unset($files);
     
     return ((count($dir_list)>0) ? $dir_list : 0 );
   }
   
-  
-  public static function listFiles($directory)
+  /*
+   * @param: directory
+   * @return: false if directory is not a valid directory path, the file array if there are files & 0 if there are none 
+   */
+  public static function listFile($directory)
   {
     if(!is_dir($directory))
       return false;
     
     $files = scandir($directory);
-    $dir_list = array();
+    $file_list = array();
     
     foreach($files as $file)
     {
       if(is_file($directory.DIR_SEP.$file))
-        $dir_list[] = $file;
+        $file_list[] = $file;
     }    
+    unset($files);
     
-    return ((count($dir_list)>0) ? $dir_list : 0 );
+    return ((count($file_list)>0) ? $file_list : 0 );
   }
 }

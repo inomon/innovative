@@ -1,4 +1,4 @@
-creaating an application:
+creating an application:
 
 developer panel: 
   - create a new application

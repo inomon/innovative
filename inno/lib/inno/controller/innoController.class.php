@@ -13,6 +13,7 @@
 class innoController
 {
   protected $status = 'uninitialized';
+  protected $inno_layout = 'layout';
   protected static $inno_cache = 'uninitialized';
   protected static $inno_request = 'uninitialized';
   protected static $inno_routing = 'uninitialized';
@@ -32,6 +33,16 @@ class innoController
   public function __toString()
   {
     return $this->status;
+  }
+
+  public function setLayout($layout)
+  {
+    $this->inno_layout = $layout;
+  }
+
+  public function getLayout()
+  {
+    return $this->inno_layout;
   }
   
   /* mutators for objects used in the page */
@@ -172,21 +183,17 @@ class innoController
     {
       echo $this->getCache()->loadTemplate();
       
-      // @todo: (arguable statement) check if this will optimize the code/application or slow it down
       $this->getCache()->dumpConfig();
       return;
     }
     
-    
     // set default layout
-    $inno_layout = 'layout';
     $inno_template = 'template';
     $inno_forward_action = false;
     
     // wrap action execution in a loop to enable action skipping
     do
     {
-
       try
       {
         // get the action
@@ -228,8 +235,7 @@ class innoController
         $inno_forward_action = true;
       }
     } while($inno_forward_action);
-  
-
+    
     // use output buffer to get template contents
     // start output buffer
     ob_start();
@@ -237,7 +243,7 @@ class innoController
     $inno_template = ob_get_contents();
     ob_end_clean();
     // end output buffer
-
+    
     // set template contents
     innoRenderer::setTemplate($inno_template);
     
@@ -264,7 +270,6 @@ class innoController
       $this->getCache()->dumpTemplate($inno_layout);
     }
     
-    // @todo: (arguable statement) check if this will optimize the code/application or slow it down
     $this->getCache()->dumpConfig();
     
     return;

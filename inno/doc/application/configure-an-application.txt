@@ -1,16 +1,33 @@
 the directory of an application:
-  {LIBRARY}/appli/[APP-NAME]
+  /{LIBRARY}/appli/[APPLICATION-NAME]/
     - module folders
+      + /[MODULE-NAME].mod/
+    - action & component files
+      + /[MODULE-NAME].mod/*.action.php
+      + /[MODULE-NAME].mod/*.comp.php
+    - template folders
+      + /[MODULE-NAME].mod/tmplt/
+    - template files
+      + /[MODULE-NAME].mod/tmplt/*.tmplt.php
+      + /[MODULE-NAME].mod/tmplt/*.comp.tmplt.php
     - layouts used by the application
-  
+      + /layout.php
+      + /*.php
+    - application specific library
+      + /[MODULE-NAME].mod/lib/
+      + /[MODULE-NAME].mod/lib/classes/
+      + /[MODULE-NAME].mod/lib/helper/
+
 application configuration directory:
-  {LIBRARY}/conf/[APP-NAME]
-    - the ini file [APP-NAME].ini.php
-      + contains application environment initialization details
-    -the yml configuration files
-      + app.yml
-      + module.yml
-      + routing.yml
-      + site.yml
-      + view.yml
-      + web.yml
+  /{LIBRARY}/conf/[APPLICATION-NAME]/
+    - the ini file which contains application environment initialization details
+      + /[APP-NAME].ini.php
+    - the yml configuration files
+      + /app.yml
+      + /module.yml
+      + /routing.yml
+      + /settings.yml
+      + /site.yml
+      + /view.yml
+      + /web.yml
+

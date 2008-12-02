@@ -54,6 +54,9 @@ innoDir::initialize(array(
         'CACHE_TMPLT'       => LIB.DIR_SEP.'cache'.DIR_SEP.'tmplt'.DIR_SEP.APPLI.DIR_SEP,
         'ASSETS'            => '',
         'MODULE'            => LIB.DIR_SEP.'appli'.DIR_SEP.APPLI.DIR_SEP,
+        'MODULE_LIB'        => LIB.DIR_SEP.'appli'.DIR_SEP.APPLI.DIR_SEP.'lib'.DIR_SEP,
+        'MODULE_CLASS'      => LIB.DIR_SEP.'appli'.DIR_SEP.APPLI.DIR_SEP.'lib'.DIR_SEP.'classes'.DIR_SEP,
+        'MODULE_HELPER'     => LIB.DIR_SEP.'appli'.DIR_SEP.APPLI.DIR_SEP.'lib'.DIR_SEP.'helper'.DIR_SEP,
         'MODULE_ACTION'     => LIB.DIR_SEP.'appli'.DIR_SEP.APPLI.DIR_SEP.'%s.mod'.DIR_SEP,
         'MODULE_TMPLT'      => LIB.DIR_SEP.'appli'.DIR_SEP.APPLI.DIR_SEP.'%s.mod'.DIR_SEP.'tmplt'.DIR_SEP,
         'D_ASSETS'          => '',
@@ -65,8 +68,10 @@ innoDir::initialize(array(
         'DEV_MODULE'        => LIB.DIR_SEP.'dev'.DIR_SEP,
         'DEV_MODULE_ACTION' => LIB.DIR_SEP.'dev'.DIR_SEP.'%s.mod'.DIR_SEP,
         'DEV_MODULE_TMPLT'  => LIB.DIR_SEP.'dev'.DIR_SEP.'%s.mod'.DIR_SEP.'tmplt'.DIR_SEP,
-        'INNO_LIB_DIRS'     => array(
+        'INNO_LIB_DIRS'     => array(        
+                                  // library directory
                                   LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'assets'.DIR_SEP,
+                                  LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'autoload'.DIR_SEP,
                                   LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'cache'.DIR_SEP,
                                   LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'config'.DIR_SEP,
                                   LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'controller'.DIR_SEP,
@@ -74,7 +79,16 @@ innoDir::initialize(array(
                                   LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'renderer'.DIR_SEP,
                                   LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'request'.DIR_SEP,
                                   LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'routing'.DIR_SEP,
+                                  LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'scaffolding'.DIR_SEP,
+                                  LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'skeleton'.DIR_SEP,
+                                  LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'templater'.DIR_SEP,
                                   LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'utilities'.DIR_SEP,
+                                  
+                                  // skeleton sub-directory
+                                  LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'skeleton'.DIR_SEP.'action'.DIR_SEP,
+                                  LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'skeleton'.DIR_SEP.'conf'.DIR_SEP,
+                                  LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'skeleton'.DIR_SEP.'misc'.DIR_SEP,
+                                  LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'skeleton'.DIR_SEP.'template'.DIR_SEP,
                                 ),
       ));
 

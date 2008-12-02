@@ -7,10 +7,68 @@ the developer panel, is the most basic & fastest way to create an application
   + input application details
   + configure application details
   + generate scaffolding for the application
-    + create modules 
+   ++ CREATE MODULES ++
+     { SITUATION 1 }
+      + create actions
+        + create action
+     { SITUATION 2 }
+      + create actions
+        + create action template
+     { SITUATION 3 }
+      + create actions
+        + create action
+        + create action template
+     { SITUATION 4 }
+      + create actions
+        + create action
+        + create action template
+      + create components
+        + create component template
+     { SITUATION 5 }
+      + create actions
+        + create action
+        + create action template
+      + create components
+        + create component
+        + create component template
+     { SITUATION 6 }
+      + create components
+        + create component
+     { SITUATION 7 }
+      + create components
+        + create component
+        + create component template
+     { SITUATION 8 }
+      + create components
+        + create component template
+   ++ CREATE ACTIONS ++
+     { SITUATION 9 }
+      + create actions
+        + create action
+     { SITUATION 10 }
+      + create actions
+        + create action template
+     { SITUATION 11 }
+      + create actions
+        + create action
+        + create action template
+   ++ CREATE COMPONENTS ++
+     { SITUATION 12 }
+      + create components
+        + create component
+     { SITUATION 13 }
+      + create components
+        + create component template
+     { SITUATION 14 }
+      + create components
+        + create component
+        + create component template
+   ++ CREAT TEMPLATES ++
+     { SITUATION 8 }
       + create actions
         + create action template
       + create components
         + create component template
   + configure environment specific variables & objects
 ]
+

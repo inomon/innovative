@@ -15,6 +15,7 @@ include_once('inno.dir.php');
 
 // load needed classes to speed-up the initilization 
 include_once(innoDir::get('INNO_LIB').'utilities/Spyc.class.php');
+include_once(innoDir::get('INNO_LIB').'autoload/innoAutoload.class.php');
 include_once(innoDir::get('INNO_LIB').'config/innoConfig.class.php');
 include_once(innoDir::get('INNO_LIB').'cache/innoCache.class.php');
 
@@ -22,16 +23,10 @@ include_once(innoDir::get('INNO_LIB').'cache/innoCache.class.php');
 include_once(innoDir::get('INNO_HELPER').'Loader.helper.php');
 
 $inno_cache = new innoCache();
-if ($inno_cache->isConfCached())
-  $inno_cache->loadConfig();
-else
-{
-  // include initialization file depending on environment
-  if(!file_exists(innoDir::get('CONF').APPLI.'.ini.php'))
-    die('<html><body><font color="red">Environment dependent initialization file, NOT FOUND!!</font></body></html>');
-  
-  require_once(innoDir::get('CONF').APPLI.'.ini.php');
+$is_cached = $inno_cache->isConfCached();
 
+if (!$is_cached)
+{
   // clear config holder
   innoConfig::clear();
   // load the application configuration
@@ -53,3 +48,12 @@ else
 
 // include the universal initialization file for i.i
 include_once('inno.ini.php');
+
+if ($is_cached)
+  $inno_cache->loadConfig();
+
+// include initialization file depending on environment
+if(!file_exists(innoDir::get('CONF').APPLI.'.ini.php'))
+  die('<html><body><font color="red">Environment dependent initialization file, NOT FOUND!!</font></body></html>');
+
+require_once(innoDir::get('CONF').APPLI.'.ini.php');

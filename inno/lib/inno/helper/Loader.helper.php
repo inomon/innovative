@@ -12,34 +12,45 @@
 
 function load_helper()
 {
-  $helpers = func_get_args();
+  if (is_array(func_get_arg(0)))
+    $helpers = func_get_arg(0);
+  else
+    $helpers = func_get_args();
+  
   foreach ($helpers as $helper)
   {
     $file = innoDir::get('INNO_HELPER').$helper.'.helper.php';
     if(file_exists($file))
     {
+      innoAutoload::addHelper($file);
       include_once($file);
-      if(function_exists('initialize'))
-        initialize();
+      $ini = 'initialize'.$helper;
+      if(function_exists($ini))
+        $ini();
     }
     else 
       die('This helper doesnt exist: '.$file);
   }
+  
   return;
 }
 
 function load_class()
 {
-  $classes = func_get_args();
+  if (is_array(func_get_arg(0)))
+    $classes = func_get_arg(0);
+  else
+    $classes = func_get_args();
+  
   foreach ($classes as $class)
   {
     $class_exists = false;
-    //$file = innoDir::get('INNO_LIB').$class.'.class.php';
     $file = $class.'.class.php';
     foreach (innoDir::get('INNO_LIB_DIRS') as $dir)
     {
       if(file_exists($dir.$file))
       {
+        innoAutoload::addClass($dir.$file);
         $file = $dir.$file;
         $class_exists = true;
         break;
@@ -51,62 +62,95 @@ function load_class()
     else 
       die('This class doesnt exist: '.$file);
   }
+  
   return;
 }
 
-function load_custom_helper()
+function app_helper()
 {
-  $helpers = func_get_args();
+  if (is_array(func_get_arg(0)))
+    $helpers = func_get_arg(0);
+  else
+    $helpers = func_get_args();
+  
   foreach ($helpers as $helper)
   {
-    $file = LIB.DIR_SEP.(($loc) ? $loc.DIR_SEP : '').$helper.'.helper.php';
+    $file = innoDir::get('MODULE_HELPER').$helper.'.helper.php';
     if(file_exists($file))
     {
+      innoAutoload::addHelper($file);
       include_once($file);
-      if(function_exists('initialize'))
-        initialize();
+      $ini = 'initialize'.$helper;
+      if(function_exists($ini))
+        $ini();
     }
     else 
-      die('This custom helper doesnt exist: '.(($loc) ? $loc.DIR_SEP : '').$file);
-  }
-  /*
-  if (!$helpers)
-  {
-    return;
+      die('This helper doesnt exist: '.$file);
   }
   
-  if (is_string($helpers))
-  {
-  }
-  else
-  {
-    foreach ($helper as $helper)
-      include_once(LIB.DIR_SEP.(($loc) ? $loc.DIR_SEP : '').$helper.'.helper.php');
-  }
-  */
   return;
 }
 
-// @todo: for usage development/testing 
-function load_custom_class($classes = null, $loc = '')
+function app_class()
 {
-  if (!$classes)
+  if (is_array(func_get_arg(0)))
+    $classes = func_get_arg(0);
+  else
+    $classes = func_get_args();
+  
+  foreach ($classes as $class)
   {
-    return;
+    $file = innoDir::get('MODULE_CLASS').$class.'.class.php';
+    
+    if($class_exists)
+    {
+      innoAutoload::addClass($dir.$file);
+      include_once($file);
+    }
+    else 
+      die('This class doesnt exist: '.$file);
   }
   
-  if (is_string($classes))
-  {
-    include_once(LIB.DIR_SEP.(($loc) ? $loc.DIR_SEP : '').$class.'.class.php');
-  }
-  else
-  {
-    foreach ($classes as $class)
-      include_once(LIB.DIR_SEP.(($loc) ? $loc.DIR_SEP : '').$class.'.class.php');
-  }
   return;
 }
 
+function load_helper_from_cache()
+{
+  $helpers = func_get_arg(0);
+  
+  foreach ($helpers as $helper)
+  {
+    $substr_end = strpos($helper, '.')-1;
+    $substr_str = strrpos($helper, ((stripos($_SERVER["DOCUMENT_ROOT"], ':') === false) ? "/" : "\\" ))+1;
+    $helper_name = substr($helper, $substr_str, $substr_end);
+    
+    include_once($helper);
+    $ini = 'initialize'.$helper_name;
+    if(function_exists($ini))
+      $ini();
+  }
+  
+  return;
+}
+
+function load_class_from_cache()
+{
+  $classes = func_get_arg(0);
+  
+  foreach ($classes as $class)
+  {
+    $substr_end = strpos($class, '.')-1;
+    $substr_str = strrpos($class, ((stripos($_SERVER["DOCUMENT_ROOT"], ':') === false) ? "/" : "\\" ))+1;
+    $class_name = substr($class, $substr_str, $substr_end);
+    
+    include_once($class);
+    $ini = 'initialize'.$class_name;
+    if(function_exists($ini))
+      $ini();
+  }
+  
+  return;
+}
 
 // @todo: add an exception/error try-catch block when a component wants to throw that exception/error
 function load_component($module, $component, $include_action = true, $component_values = array())
