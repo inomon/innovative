@@ -22,38 +22,6 @@ include_once(innoDir::get('INNO_LIB').'cache/innoCache.class.php');
 // load helper classes
 include_once(innoDir::get('INNO_HELPER').'Loader.helper.php');
 
-$inno_cache = new innoCache();
-$is_cached = $inno_cache->isConfCached();
-
-if (!$is_cached)
-{
-  // clear config holder
-  innoConfig::clear();
-  // load the application configuration
-  innoConfig::add(Spyc::YAMLLoad(innoDir::get('CONF').'app.yml'));
-  // load the module configuration
-  innoConfig::add(Spyc::YAMLLoad(innoDir::get('CONF').'module.yml'));
-  // load the web configuration
-  innoConfig::add(Spyc::YAMLLoad(innoDir::get('CONF').'web.yml'));
-  // load the site configuration
-  innoConfig::add(Spyc::YAMLLoad(innoDir::get('CONF').'site.yml'));
-  // load the view configuration
-  innoConfig::add(Spyc::YAMLLoad(innoDir::get('CONF').'view.yml'));
-
-  // load the routing rules
-  innoConfig::set('inno_routing_rules', Spyc::YAMLLoad(innoDir::get('CONF').'routing.yml'));
-  // load the routing rules
-  innoConfig::set('inno_appli_settings', Spyc::YAMLLoad(innoDir::get('CONF').'settings.yml'));
-}
-
 // include the universal initialization file for i.i
 include_once('inno.ini.php');
 
-if ($is_cached)
-  $inno_cache->loadConfig();
-
-// include initialization file depending on environment
-if(!file_exists(innoDir::get('CONF').APPLI.'.ini.php'))
-  die('<html><body><font color="red">Environment dependent initialization file, NOT FOUND!!</font></body></html>');
-
-require_once(innoDir::get('CONF').APPLI.'.ini.php');

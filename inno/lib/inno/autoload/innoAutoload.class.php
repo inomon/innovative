@@ -15,14 +15,14 @@ class innoAutoload
   protected static $helpers = array();
   protected static $classes = array();
   
-  public static function addClass($class)
+  public static function addClass($class, $file)
   {
-    self::$classes[] = $class;    
+    self::$classes[$class] = $file;
   }
   
-  public static function addHelper($helper)
+  public static function addHelper($helper, $file)
   {
-    self::$helpers[] = $helper;
+    self::$helpers[$helper] = $file;
   }
   
   public static function getClasses()

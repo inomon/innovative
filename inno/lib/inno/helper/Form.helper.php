@@ -9,6 +9,11 @@
  * @todo: _____________
  *
  */
+ 
+function initializeForm()
+{
+  // initialize
+}
 
 /*
  * Creates a smart input textbox

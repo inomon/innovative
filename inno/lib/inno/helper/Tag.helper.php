@@ -10,6 +10,11 @@
  *
  */
 
+function initializeTag()
+{
+  // initialization function
+}
+
 // function for creating an image tag
 function image_tag($img,  $details = array())
 {
@@ -18,7 +23,7 @@ function image_tag($img,  $details = array())
 }
 
 // function for creating a smart link tag
-function link_tag($name, $link = '', $details = array())
+function link_tag($link, $name = null, $details = array())
 {
   $routing_rules = innoConfig::get('inno_routing_rules');
   $new_link = $link;
@@ -32,10 +37,12 @@ function link_tag($name, $link = '', $details = array())
   if (!(strpos($link, '~') !== false)) 
     $new_link .= substr($link, (strpos($link, '?'), strlen($link));
   
-  $tag = '<a href="'.$new_link.'"'._tag_details('a', $details);
-  $tag .= '>';
+
+  if (is_null($name))
+    $name = $new_link;
+  $tag = '<a href="'.$new_link.'"'._tag_details('a', $details).'>'.$name.'</a>';
   
-  // perform garbage collection
+  // perform garbage collection, considering that this function would be called almost a hundred times ^_^
   unset($routing_rules, $new_link, $details, $name, $link);
   
   return $tag;
@@ -43,17 +50,13 @@ function link_tag($name, $link = '', $details = array())
 
 function script_tag($script, $details = array())
 {
-  $tag = '<script type='."\"text/javascript\""._tag_details('script', $details);
-  
-  $tag .= '>'.$script.'</script>';
+  $tag = '<script type='."\"text/javascript\""._tag_details('script', $details).'>'.$script.'</script>';
   return $tag;
 }
 
 function style_tag($style, $details = array())
 {
-  $tag = '<style type='."\"text/css\""._tag_details('style', $details);
-  
-  $tag .= '>'.$style.'</style>';
+  $tag = '<style type='."\"text/css\""._tag_details('style', $details).'>'.$style.'</style>';
   return $tag;
 }
 

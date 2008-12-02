@@ -10,9 +10,16 @@
  *
  */
 
+function initializeLoader()
+{
+  // initialization function
+}
+
 function load_helper()
 {
-  if (is_array(func_get_arg(0)))
+  if (is_string(func_get_arg(0)))
+    $helpers[] = func_get_arg(0);
+  else if (is_array(func_get_arg(0)))
     $helpers = func_get_arg(0);
   else
     $helpers = func_get_args();
@@ -22,7 +29,7 @@ function load_helper()
     $file = innoDir::get('INNO_HELPER').$helper.'.helper.php';
     if(file_exists($file))
     {
-      innoAutoload::addHelper($file);
+      innoAutoload::addHelper($helper, $file);
       include_once($file);
       $ini = 'initialize'.$helper;
       if(function_exists($ini))
@@ -37,7 +44,9 @@ function load_helper()
 
 function load_class()
 {
-  if (is_array(func_get_arg(0)))
+  if (is_string(func_get_arg(0)))
+    $classes[] = func_get_arg(0);
+  else if (is_array(func_get_arg(0)))
     $classes = func_get_arg(0);
   else
     $classes = func_get_args();
@@ -50,7 +59,7 @@ function load_class()
     {
       if(file_exists($dir.$file))
       {
-        innoAutoload::addClass($dir.$file);
+        innoAutoload::addClass($class, $dir.$file);
         $file = $dir.$file;
         $class_exists = true;
         break;
@@ -68,7 +77,9 @@ function load_class()
 
 function app_helper()
 {
-  if (is_array(func_get_arg(0)))
+  if (is_string(func_get_arg(0)))
+    $helpers[] = func_get_arg(0);
+  else if (is_array(func_get_arg(0)))
     $helpers = func_get_arg(0);
   else
     $helpers = func_get_args();
@@ -78,7 +89,7 @@ function app_helper()
     $file = innoDir::get('MODULE_HELPER').$helper.'.helper.php';
     if(file_exists($file))
     {
-      innoAutoload::addHelper($file);
+      innoAutoload::addHelper($helper, $file);
       include_once($file);
       $ini = 'initialize'.$helper;
       if(function_exists($ini))
@@ -93,7 +104,9 @@ function app_helper()
 
 function app_class()
 {
-  if (is_array(func_get_arg(0)))
+  if (is_string(func_get_arg(0)))
+    $classes[] = func_get_arg(0);
+  else if (is_array(func_get_arg(0)))
     $classes = func_get_arg(0);
   else
     $classes = func_get_args();
@@ -104,7 +117,7 @@ function app_class()
     
     if($class_exists)
     {
-      innoAutoload::addClass($dir.$file);
+      innoAutoload::addClass($class, $dir.$file);
       include_once($file);
     }
     else 
@@ -152,50 +165,4 @@ function load_class_from_cache()
   return;
 }
 
-// @todo: add an exception/error try-catch block when a component wants to throw that exception/error
-function load_component($module, $component, $include_action = true, $component_values = array())
-{
-  $cmp_tmplt = sprintf(innoDir::get('MODULE_TMPLT'), $module).$component.'.comp.tmplt.php';
-  if($include_action)
-    $cmp = sprintf(innoDir::get('MODULE_ACTION'), $module).$component.'.comp.php';
-  
-  if($include_action)
-    if (!file_exists($cmp))
-      return 'ERROR: There is no component with that name. : '.$component.'.comp.php';
-    
-  if (!file_exists($cmp_tmplt))
-    return 'ERROR: The components template does not exist. : '.$component.'.comp.tmplt.php';
-  
-  // @todo: test for dependencies, [DEPRECATED]
-  /* start DEPRECATION MARK */
-  // makes the object created at the action, ('INNO' variables)  available in this component
-  foreach ($GLOBALS as $key => $value)
-  {
-    if (is_object($value) && !(strpos($key, 'inno') === false))
-    {
-      $$key = $value;
-    }
-    if (is_string($value) && !(strpos($key, 'inno') === false))
-    {
-      $$key = $value;
-    }
-  }  
-  /* end DEPRECATION MARK */
-  
-  if(count($component_values) > 0 && !is_null($component_values))
-  {
-    foreach($component_values as $val_name, $val_content)
-      $$val_name = $val_content;
-  }
-  
-  if($include_action)
-    include_once($cmp);
-
-  ob_start();
-  include_once($cmp_tmplt);
-  $component = ob_get_contents();
-  ob_end_clean();
-  
-  return $component;
-}
 
