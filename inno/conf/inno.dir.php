@@ -49,6 +49,7 @@ innoDir::initialize(array(
         'INNO_LIB'          => LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP,
         'INNO_HELPER'       => LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'helper'.DIR_SEP,
         'CONF'              => LIB.DIR_SEP.'conf'.DIR_SEP.APPLI.DIR_SEP,
+        'PROPEL_CONF'       => LIB.DIR_SEP.'conf'.DIR_SEP.'propel'.DIR_SEP,
         'CACHE'             => LIB.DIR_SEP.'cache'.DIR_SEP,
         'CACHE_CONF'        => LIB.DIR_SEP.'cache'.DIR_SEP.'conf'.DIR_SEP.APPLI.DIR_SEP,
         'CACHE_TMPLT'       => LIB.DIR_SEP.'cache'.DIR_SEP.'tmplt'.DIR_SEP.APPLI.DIR_SEP,

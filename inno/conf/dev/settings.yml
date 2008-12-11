@@ -8,6 +8,8 @@ database:
   password:      root
   db_name:       database
   enable_conn:   false
+project:
+  name:          innovative
 
 # start editing here
 

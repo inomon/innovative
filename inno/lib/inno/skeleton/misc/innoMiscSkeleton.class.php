@@ -19,11 +19,47 @@ class innoMiscSkeleton extends innoSkeleton
     
   }
   
-  public function generateSkeleton($skeleton_type, $content)
+  public function skeletize($skeleton_type, $content = null)
   {
     switch ($skeleton_type)
     {
-      
+      case '':
+        return $this->createSkeleton($skeleton_type, $content);
+        break;
+      case '':
+        return $this->createSkeleton($skeleton_type, $content);
+        break;
     }
+    
+    return;
+  }
+  
+  protected function createSkeleton($skeleton_type, $content = null)
+  {
+    $skeleton = '';
+    
+    switch ($skeleton_type)
+    {
+      case '':
+        if (!is_null($content))
+          $skeleton =
+"
+
+";
+        else
+          $skeleton = $content;
+        break;
+      case '':
+        if (!is_null($content))
+          $skeleton =
+"
+
+";
+        else
+          $skeleton = $content;
+        break;
+    }
+    
+    return $skeleton;
   }
 }

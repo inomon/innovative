@@ -88,15 +88,19 @@ class innoCache
       $helper = var_export(innoAutoload::getHelpers(), true);
       $configuration = 
 "
-<?php\ninnoConfig::addFromCache(".$conf.");\n\n
-  \$settings = innoConfig::get('inno_appli_settings');
-  if(\$settings['database']['enable_conn'])
-    require_once('propel/Propel.php');
-  unset(\$settings);
+<?php if ( ! defined('LIB')) exit('Direct script access is not allowed!');\n
+innoConfig::addFromCache(".$conf.");\n\n
+\$settings = innoConfig::get('inno_appli_settings');
+if(\$settings['database']['enable_conn'])
+{
+  require_once('propel/Propel.php'); 
+  Propel::init(innoDir::get('PROPEL_CONF').\$settings['project']['name'].'-conf.php');
+}
+unset(\$settings);
 ";
       $autoload = 
 "
-<?php\n
+<?php if ( ! defined('LIB')) exit('Direct script access is not allowed!');\n
 load_class_from_cache(".$class.");\n\n
 load_helper_from_cache(".$helper.");\n\n
 ";

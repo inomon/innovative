@@ -31,7 +31,10 @@ if (!$is_cached)
   load_helper($settings['inno_autoload']['helpers']);
   load_class($settings['inno_autoload']['classes']);
   if($settings['database']['enable_conn'])
+  {
     require_once('propel/Propel.php');
+    Propel::init(innoDir::get('PROPEL_CONF').$settings['project']['name'].'-conf.php');
+  }
   unset($settings);
   /*
   load_helper(
