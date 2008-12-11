@@ -30,6 +30,8 @@ if (!$is_cached)
   $settings = innoConfig::get('inno_appli_settings');
   load_helper($settings['inno_autoload']['helpers']);
   load_class($settings['inno_autoload']['classes']);
+  if($settings['database']['enable_conn'])
+    require_once('propel/Propel.php');
   unset($settings);
   /*
   load_helper(

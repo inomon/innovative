@@ -86,9 +86,20 @@ class innoCache
       $conf = var_export(innoConfig::getAll(), true);
       $class = var_export(innoAutoload::getClasses(), true);
       $helper = var_export(innoAutoload::getHelpers(), true);
-      $configuration = "<?php\ninnoConfig::addFromCache(".$conf.");\n\n";
-      $autoload = "<?php\nload_class_from_cache(".$class.");\n\nload_helper_from_cache(".$helper.");\n\n";
-      
+      $configuration = 
+"
+<?php\ninnoConfig::addFromCache(".$conf.");\n\n
+  \$settings = innoConfig::get('inno_appli_settings');
+  if(\$settings['database']['enable_conn'])
+    require_once('propel/Propel.php');
+  unset(\$settings);
+";
+      $autoload = 
+"
+<?php\n
+load_class_from_cache(".$class.");\n\n
+load_helper_from_cache(".$helper.");\n\n
+";
       return ($this->cache(innoDir::get('CACHE_CONF').'innoconfig.php', $configuration) && $this->cache(innoDir::get('CACHE_CONF').'innoautoload.php', $autoload));
     }
     
