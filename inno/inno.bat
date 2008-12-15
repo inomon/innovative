@@ -6,6 +6,7 @@ goto DEFINED
 )
 
 :NOTDEFINED
+echo ------------------------------------------
 echo Arguments not defined
 echo ------------------------------------------
 echo     %0 [-args-]
@@ -27,6 +28,7 @@ goto CLR_PROPEL_CONF
 if "%INNO_COMD%" == "insert-sql" (
 goto NOT_IMPLEMENTED
 )
+goto :NOTDEFINED
 
 
 :NOT_IMPLEMENTED

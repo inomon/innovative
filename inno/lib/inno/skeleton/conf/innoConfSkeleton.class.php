@@ -10,7 +10,7 @@
  *
  */
 
-require_once('..'.DIR_SEP.'innoSkeleton.class.php');
+load_class('innoSkeleton');
 
 class innoConfSkeleton extends innoSkeleton
 {
@@ -59,74 +59,50 @@ class innoConfSkeleton extends innoSkeleton
     switch ($skeleton_type)
     {
       case 'app.yml':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;
       case 'module.yml':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;
       case 'routing.yml':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;
       case 'settings.yml':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;
       case 'site.yml':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;
       case 'view.yml':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;
       case 'web.yml':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;
       case 'APPLI.ini.php':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;

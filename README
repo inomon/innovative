@@ -28,8 +28,8 @@ javascript:
 php
   object-relational mapping
     - propel [Propel, http://propel.phpdb.org]
-  database abstraction layer
-    - creole [Creole, http://creole.phpdb.org]
+  connection used by the orm
+    - pdo [PHP Data Objects, http://xxx.xxx.xxx]
   yml to php
     - spyc [SimplePhpYamlClass, http://spyc.sourceforge.net]
 

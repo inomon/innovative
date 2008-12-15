@@ -79,7 +79,7 @@ class innoConfig
   {
     return self::$config;
   }
-
+  
   public static function clear()
   {
     self::$config = null;

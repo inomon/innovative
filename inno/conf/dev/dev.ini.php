@@ -1,4 +1,4 @@
-<?php  if ( ! defined('LIB')) exit('Direct script access is not allowed!');
+<?php if ( ! defined('LIB')) exit('Direct script access is not allowed!');
 
 if(APPLI=='dev') 
 {

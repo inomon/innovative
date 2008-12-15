@@ -1,0 +1,1 @@
+homepage: { module: default, action: index, url: / }

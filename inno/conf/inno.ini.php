@@ -22,10 +22,7 @@ if (!$is_cached)
   innoConfig::set('inno_routing_rules', Spyc::YAMLLoad(innoDir::get('CONF').'routing.yml'));
   // load the routing rules
   innoConfig::set('inno_appli_settings', Spyc::YAMLLoad(innoDir::get('CONF').'settings.yml'));
-}
-
-if (!$is_cached)
-{
+  
   // initialize default loaded classes and helpers
   $settings = innoConfig::get('inno_appli_settings');
   load_helper($settings['inno_autoload']['helpers']);
@@ -55,6 +52,10 @@ if (!$is_cached)
   );
   */
 }
+else
+{
+  $inno_cache->loadConfig();
+}
 
 // resolve the uri/url of the requested page
 $url = '/';
@@ -72,9 +73,6 @@ else if(isset($_SERVER['PATH_INFO']))
 innoController::setRequest(new innoRequest());
 innoController::setRouting(new innoRouting(innoConfig::get('inno_routing_rules'), $url));
 innoController::setCache($inno_cache);
-
-if ($is_cached)
-  $inno_cache->loadConfig();
 
 // include initialization file depending on environment
 if(!file_exists(innoDir::get('CONF').APPLI.'.ini.php'))

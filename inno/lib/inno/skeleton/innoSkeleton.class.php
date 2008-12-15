@@ -11,9 +11,10 @@
  */
 
 class innoSkeleton
-{  
-  public function generateSkeleton()
+{
+  public function generateSkeleton($path)
   {
-    
+    $skeleton = include_once $path;
+    return $skeleton;
   }
 }

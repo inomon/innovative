@@ -1,0 +1,15 @@
+# do not edit manually
+inno_autoload:
+  classes: [innoAssets, innoRenderer, innoRequest, innoRouting, innoController, innoError401Exception, innoError403Exception, innoError404Exception]
+  helpers: [Tag, Exception, Fragment]
+database:
+  host:          localhost
+  username:      root
+  password:      root
+  db_name:       database
+  enable_conn:   false
+project:
+  name:          innovative
+
+# start editing here
+

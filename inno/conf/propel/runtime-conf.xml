@@ -10,11 +10,13 @@
  </log>
  -->
  <propel>
-  <datasources default="bookstore">
-   <datasource id="bookstore"> <!-- this ID must match <database name=""> in schema.xml -->
-    <adapter>sqlite</adapter> <!-- sqlite, mysql, myssql, oracle, or pgsql -->
+  <datasources default="innovative">
+   <datasource id="innovative"> <!-- this ID must match <database name=""> in schema.xml -->
+    <adapter>mysql</adapter> <!-- sqlite, mysql, myssql, oracle, or pgsql -->
     <connection>
-     <dsn>sqlite2:/path/to/bookstore.db</dsn> <!-- the PDO connection DSN for database -->
+     <dsn>mysql:host=localhost;dbname=test</dsn> <!-- the PDO connection DSN for database -->
+     <user>root</user>
+     <password>root</password>
     </connection>
    </datasource>
   </datasources>

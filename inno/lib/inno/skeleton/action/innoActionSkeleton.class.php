@@ -10,7 +10,7 @@
  *
  */
 
-require_once('..'.DIR_SEP.'innoSkeleton.class.php');
+load_class('innoSkeleton');
 
 class innoActionSkeleton extends innoSkeleton
 {
@@ -26,19 +26,10 @@ class innoActionSkeleton extends innoSkeleton
       case 'error401.action.php':
         return $this->createSkeleton($skeleton_type, $content);
         break;
-      case 'error401.comp.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
       case 'error403.action.php':
         return $this->createSkeleton($skeleton_type, $content);
         break;
-      case 'error403.comp.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
       case 'error404.action.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-      case 'error404.comp.php':
         return $this->createSkeleton($skeleton_type, $content);
         break;
       case 'ACTION.action.php':
@@ -59,71 +50,32 @@ class innoActionSkeleton extends innoSkeleton
     switch ($skeleton_type)
     {
       case 'error401.action.php':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
-        else
-          $skeleton = $content;
-        break;
-      case 'error401.comp.php':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_ACTION').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;
       case 'error403.action.php':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_ACTION').$skeleton_type.'.inc');
         else
           $skeleton = $content;
-        break;
-      case 'error403.comp.php':
-        $skeleton =
-"
-
-";
         break;
       case 'error404.action.php':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
-        else
-          $skeleton = $content;
-        break;
-      case 'error404.comp.php':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_ACTION').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;
       case 'ACTION.action.php':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_ACTION').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;
       case 'COMP.comp.php':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_ACTION').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;

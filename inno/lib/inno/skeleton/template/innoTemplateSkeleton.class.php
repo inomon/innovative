@@ -10,7 +10,7 @@
  *
  */
 
-require_once('..'.DIR_SEP.'innoSkeleton.class.php');
+load_class('innoSkeleton');
 
 class innoTemplateSkeleton extends innoSkeleton
 {
@@ -26,19 +26,10 @@ class innoTemplateSkeleton extends innoSkeleton
       case 'error401.tmplt.php':
         return $this->createSkeleton($skeleton_type, $content);
         break;
-      case 'error401.comp.tmplt.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
       case 'error403.tmplt.php':
         return $this->createSkeleton($skeleton_type, $content);
         break;
-      case 'error403.comp.tmplt.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
       case 'error404.tmplt.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-      case 'error404.comp.tmplt.php':
         return $this->createSkeleton($skeleton_type, $content);
         break;
       case 'TEMPLATE.tmplt.php':
@@ -59,74 +50,32 @@ class innoTemplateSkeleton extends innoSkeleton
     switch ($skeleton_type)
     {
       case 'error401.tmplt.php':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
-        else
-          $skeleton = $content;
-        break;
-      case 'error401.comp.tmplt.php':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir:get('DATA_SKEL_TEMPLATE').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;
       case 'error403.tmplt.php':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
-        else
-          $skeleton = $content;
-        break;
-      case 'error403.comp.tmplt.php':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir:get('DATA_SKEL_TEMPLATE').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;
       case 'error404.tmplt.php':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
-        else
-          $skeleton = $content;
-        break;
-      case 'error404.comp.tmplt.php':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir:get('DATA_SKEL_TEMPLATE').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;
       case 'TEMPLATE.tmplt.php':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir:get('DATA_SKEL_TEMPLATE').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;
       case 'TEMPLATE.comp.tmplt.php':
-        if (!is_null($content))
-          $skeleton =
-"
-
-";
+        if (is_null($content))
+          $skeleton = parent::generateSkeleton(innoDir:get('DATA_SKEL_TEMPLATE').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;

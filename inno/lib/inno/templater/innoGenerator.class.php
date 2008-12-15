@@ -50,4 +50,15 @@ class innoGenerator
     
     return file_exists($this->getDirectory().DIR_SEP.$file_name);
   }
+  
+  public function generateDir($directory)
+  {
+    $this->directory = $directory;
+    if(!($this->isWritable()))
+      return false;
+    
+    return mkdir($this->getDirectory());
+  }
+  
+  
 }
