@@ -3,7 +3,7 @@ web:
     content-type: text/html
 
   metas:
-    title:        'innovative project: frontend'
+    title:        'innovative project'
     robots:       index, follow
     description:  innovative project
     keywords:     innovative, project, innovative project
