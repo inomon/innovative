@@ -37,7 +37,7 @@ function load_fragment($module, $fragment, $fragment_values = null)
   
   if(!is_null($fragment_values))
   {
-    foreach($fragment_values as $val_name, $val_content)
+    foreach($fragment_values as $val_name => $val_content)
       $$val_name = $val_content;
   }
   
@@ -86,7 +86,7 @@ function load_component($module, $component, $include_action = true, $component_
   
   if(!is_null($component_values))
   {
-    foreach($component_values as $val_name, $val_content)
+    foreach($component_values as $val_name => $val_content)
       $$val_name = $val_content;
   }
   

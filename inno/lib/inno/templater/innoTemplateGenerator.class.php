@@ -53,7 +53,7 @@ class innoTemplateGenerator extends innoGenerator
     // generate the default actions
     $action = new innoActionSkeleton();
     parent::setDirectory(innoDir::get('APP').DIR_SEP.$this->appli.DIR_SEP.'default.mod');
-    $foreach($default_action as $file)
+    foreach($default_action as $file)
     {
       parent::generateFile($file, $action->skeletize($file));
     }
@@ -62,7 +62,7 @@ class innoTemplateGenerator extends innoGenerator
     // generate the default templates
     $template = new innoTemplateSkeleton();
     parent::setDirectory(innoDir::get('APP').DIR_SEP.$this->appli.DIR_SEP.'default.mod'.DIR_SEP.'tmplt');
-    $foreach($default_tmplt as $file)
+    foreach($default_tmplt as $file)
     {
       parent::generateFile($file, $template->skeletize($file));
     }
@@ -71,7 +71,7 @@ class innoTemplateGenerator extends innoGenerator
     // generate the default conf
     $conf = new innoConfSkeleton();
     parent::setDirectory(innoDir::get('CONF_BASE').DIR_SEP.$this->appli);
-    $foreach($default_conf as $file)
+    foreach($default_conf as $file)
     {
       parent::generateFile($file, $conf->skeletize($file));
     }
@@ -79,7 +79,7 @@ class innoTemplateGenerator extends innoGenerator
     
     // generate misc. files
     $conf = new innoMiscSkeleton();
-    parent::setDirectory(realpath(dirname(__FILE__));
+    parent::setDirectory(realpath(dirname(__FILE__)));
     parent::generateFile($this->getAppController().'.php', str_replace('###APPLI_NAME###', $this->appli, $action->skeletize('index.php')));
   }
   

@@ -38,12 +38,12 @@ function link_tag($link, $name = null, $details = array())
   
   if(strpos($link, '~') !== false)
   {
-    $alias = substr($link, 1, ((strpos($link, '?')!==false) ? strpos($link, '?')-1 : strlen($link) ))
+    $alias = substr($link, 1, ((strpos($link, '?')!==false) ? strpos($link, '?')-1 : strlen($link) ));
     $new_link = $routing_rules[$alias];
   }
   
   if (!(strpos($link, '~') !== false)) 
-    $new_link .= substr($link, (strpos($link, '?'), strlen($link));
+    $new_link .= substr($link, strpos($link, '?'), strlen($link));
   
 
   if (is_null($name))

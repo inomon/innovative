@@ -47,7 +47,7 @@ class innoMiscSkeleton extends innoSkeleton
     {
       case 'index.php':
         if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir:get('DATA_SKEL_MISC').$skeleton_type.'.inc');
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_MISC').$skeleton_type.'.inc');
         else
           $skeleton = $content;
         break;
