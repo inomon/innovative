@@ -118,7 +118,7 @@ class innoRequest
         }
       }
       
-      if(isset($_SERVER['QUERY_STRING']))
+      if(isset($_SERVER['QUERY_STRING']) && !empty($_SERVER['QUERY_STRING']))
       {
         $request_uri = explode('&', $_SERVER['QUERY_STRING']);
         foreach($request_uri as $request)

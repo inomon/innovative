@@ -144,7 +144,7 @@ class innoTemplateGenerator extends innoGenerator
     parent::generateFile($tmplt.'.tmplt.php', $template->skeletize('TEMPLATE'));
   }
   
-  public function generateComponentFile($component, $module)
+  public function generateComponent($component, $module)
   {
     $action = new innoActionSkeleton();
     parent::setDirectory(innoDir::get('APP').DIR_SEP.$this->appli.DIR_SEP.$module.'.mod');

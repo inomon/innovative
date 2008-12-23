@@ -21,7 +21,7 @@
 class innoRenderer
 {
   protected static $template = array();
-  protected static $layout   = array();
+  protected static $layout   = '';
   protected static $headers  = array();
   protected static $layout_renderable  = true;
   

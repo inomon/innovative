@@ -209,7 +209,7 @@ class innoController
         
         // include the module-action
         if (!file_exists($inno_action))
-          throw new Error404Exception('Error: Page Not Found', 1081404);
+          throw new innoError404Exception('Error: Page Not Found', 1081404);
         
         include_once($inno_action);
         $inno_forward_action = false;
@@ -266,16 +266,16 @@ class innoController
       innoRenderer::iniHeaders();
       
       ob_start();
-      include_once(innoDir::get('MODULE').$inno_layout.'.php');
-      $inno_layout = ob_get_contents();
+      include_once(innoDir::get('MODULE').$this->getLayout().'.php');
+      $inno_layout_content = ob_get_contents();
       ob_end_clean();
       
       // set layout contents
-      innoRenderer::setLayout($inno_layout);
+      innoRenderer::setLayout($inno_layout_content);
       
       // render whole layout template
       echo innoRenderer::renderLayout();
-      $this->getCache()->dumpTemplate($inno_layout);
+      $this->getCache()->dumpTemplate($inno_layout_content);
     }
     
     $this->getCache()->dumpConfig();
