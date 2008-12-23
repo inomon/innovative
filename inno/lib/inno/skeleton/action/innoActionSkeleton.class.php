@@ -29,26 +29,7 @@ class innoActionSkeleton extends innoSkeleton
   
   public function skeletize($skeleton_type, $content = null)
   {
-    switch ($skeleton_type)
-    {
-      case 'error401.action.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-      case 'error403.action.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-      case 'error404.action.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-      case 'ACTION.action.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-      case 'COMP.comp.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-    }
-    
-    return;
+    return $this->createSkeleton($skeleton_type, $content);
   }
   
   protected function createSkeleton($skeleton_type, $content = null)
@@ -57,35 +38,55 @@ class innoActionSkeleton extends innoSkeleton
     
     switch ($skeleton_type)
     {
-      case 'error401.action.php':
+      case 'error401':
         if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_ACTION').$skeleton_type.'.inc');
+        {          
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_ACTION').$skeleton_type.'.action.php.inc');
+        }
         else
+        {          
           $skeleton = $content;
+        }
         break;
-      case 'error403.action.php':
+      case 'error403':
         if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_ACTION').$skeleton_type.'.inc');
+        {          
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_ACTION').$skeleton_type.'.action.php.inc');
+        }
         else
+        {          
           $skeleton = $content;
+        }
         break;
-      case 'error404.action.php':
+      case 'error404':
         if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_ACTION').$skeleton_type.'.inc');
+        {          
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_ACTION').$skeleton_type.'.action.php.inc');
+        }
         else
+        {          
           $skeleton = $content;
+        }
         break;
-      case 'ACTION.action.php':
+      case 'ACTION':
         if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_ACTION').$skeleton_type.'.inc');
+        {          
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_ACTION').$skeleton_type.'.action.php.inc');
+        }
         else
+        {          
           $skeleton = $content;
+        }
         break;
-      case 'COMP.comp.php':
+      case 'COMPONENT':
         if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_ACTION').$skeleton_type.'.inc');
+        {          
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_ACTION').$skeleton_type.'.comp.php.inc');
+        }
         else
+        {          
           $skeleton = $content;
+        }
         break;
     }    
     

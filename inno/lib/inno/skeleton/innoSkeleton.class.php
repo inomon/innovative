@@ -22,7 +22,7 @@ class innoSkeleton
 {
   public function generateSkeleton($path)
   {
-    $skeleton = include_once $path;
+    $skeleton = file_get_contents($path);
     return $skeleton;
   }
 }

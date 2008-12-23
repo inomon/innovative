@@ -57,6 +57,7 @@ class innoDirectoryCrawler
   
   /*
    * @description: build a directory array, with branchings/sub-directories based on the passed path
+   * 
    * @param: directory
    * @return: false if directory is not a valid directory path, the files & directories array if there are & 0 if there are none 
    */

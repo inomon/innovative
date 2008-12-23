@@ -73,7 +73,7 @@ function maximizeDesktop()
 <?php echo load_component('default', 'basictreeview') ?>
 </div>
 
-<div id="window-manager" class="window-manager" name="window-manager">
+<div id="window-manager" class="window-manager">
 </div>
 <?php
 /*

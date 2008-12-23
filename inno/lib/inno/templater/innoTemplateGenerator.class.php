@@ -30,6 +30,7 @@ class innoTemplateGenerator extends innoGenerator
     $this->appli = $appli;
   }
   
+  /* deprecated - start */
   public function setAppController($controller)
   {
     $this->app_controller = $controller;
@@ -39,12 +40,32 @@ class innoTemplateGenerator extends innoGenerator
   {
     return $this->app_controller;
   }
+  /* deprecated - end */
   
-  public function generateAppli()
+  public function generateAppli($controller)
   {
-    $default_action = array('error401.action.php', 'error403.action.php', 'error404.action.php');
-    $default_tmplt = array('error401.tmplt.php', 'error403.tmplt.php', 'error404.tmplt.php');
-    $default_conf = array('app.yml', 'module.yml', 'routing.yml', 'settings.yml', 'site.yml', 'view.yml', 'web.yml');
+    $default_action = array(
+      'error401' => 'error401.action.php', 
+      'error403' => 'error403.action.php', 
+      'error404' => 'error404.action.php', 
+      'ACTION'   => 'index.action.php'
+      );
+    $default_tmplt = array(
+      'error401' => 'error401.tmplt.php', 
+      'error403' => 'error403.tmplt.php', 
+      'error404' => 'error404.tmplt.php', 
+      'ACTION'   => 'index.tmplt.php'
+    );
+    $default_conf = array(
+      'app'      => 'app.yml', 
+      'module'   => 'module.yml', 
+      'routing'  => 'routing.yml', 
+      'settings' => 'settings.yml', 
+      'site'     => 'site.yml', 
+      'view'     => 'view.yml', 
+      'web'      => 'web.yml',
+      'APPLI'    => $this->appli.'.ini.php'
+    );
     $default_misc = array();
     
     parent::generateDir(innoDir::get('APP').DIR_SEP.$this->appli);
@@ -53,34 +74,35 @@ class innoTemplateGenerator extends innoGenerator
     // generate the default actions
     $action = new innoActionSkeleton();
     parent::setDirectory(innoDir::get('APP').DIR_SEP.$this->appli.DIR_SEP.'default.mod');
-    foreach($default_action as $file)
+    foreach($default_action as $index => $file)
     {
-      parent::generateFile($file, $action->skeletize($file));
+      parent::generateFile($file, $action->skeletize($index));
     }
-    parent::generateFile('index.action.php', $action->skeletize('ACTION.action.php'));
     
     // generate the default templates
     $template = new innoTemplateSkeleton();
     parent::setDirectory(innoDir::get('APP').DIR_SEP.$this->appli.DIR_SEP.'default.mod'.DIR_SEP.'tmplt');
-    foreach($default_tmplt as $file)
+    foreach($default_tmplt as $index => $file)
     {
-      parent::generateFile($file, $template->skeletize($file));
+      parent::generateFile($file, $template->skeletize($index));
     }
-    parent::generateFile('index.tmplt.php', $action->skeletize('TEMPLATE.tmplt.php'));
     
     // generate the default conf
     $conf = new innoConfSkeleton();
     parent::setDirectory(innoDir::get('CONF_BASE').DIR_SEP.$this->appli);
-    foreach($default_conf as $file)
+    foreach($default_conf as $index => $file)
     {
-      parent::generateFile($file, $conf->skeletize($file));
+      parent::generateFile($file, $conf->skeletize($index));
     }
-    parent::generateFile($this->appli.'.ini.php', $action->skeletize('APPLI.ini.php'));
     
     // generate misc. files
-    $conf = new innoMiscSkeleton();
+    $misc = new innoMiscSkeleton();
     parent::setDirectory(realpath(dirname(__FILE__)));
-    parent::generateFile($this->getAppController().'.php', str_replace('###APPLI_NAME###', $this->appli, $action->skeletize('index.php')));
+    foreach($default_conf as $index => $file)
+    {
+      parent::generateFile($file, $conf->skeletize($index));
+    }
+    parent::generateFile($controller.'.php', str_replace('###APPLI_NAME###', $this->appli, $misc->skeletize('index')));
   }
   
   public function generateModule($module)
@@ -90,38 +112,53 @@ class innoTemplateGenerator extends innoGenerator
     
     $action = new innoActionSkeleton();
     parent::setDirectory($module_path);
-    parent::generateFile('index.action.php', $action->skeletize('ACTION.action.php'));
+    parent::generateFile('index.action.php', $action->skeletize('ACTION'));
     
     $template = new innoTemplateSkeleton();
     parent::setDirectory($module_path);
-    parent::generateFile('index.tmplt.php', $template->skeletize('TEMPLATE.tmplt.php'));
+    parent::generateFile('index.tmplt.php', $template->skeletize('TEMPLATE'));
   }
   
-  public function generateActionFile($actn, $module, $tmplt = null)
+  public function generateAction($actn, $module, $tmplt = null)
   {
     $appli_path = innoDir::get('APP').DIR_SEP.$this->appli.DIR_SEP.$module.'.mod';
     parent::setDirectory($appli_path);
+    
     $action = new innoActionSkeleton();
-    parent::generateFile($actn.'.action.php', $action->skeletize('ACTION.action.php'));
+    parent::generateFile($actn.'.action.php', $action->skeletize('ACTION'));
     
     if (!is_null($template))
     {
       parent::setDirectory($appli_path.DIR_SEP.'tmplt');
       $template = new innoActionSkeleton();
-      parent::generateFile($tmplt.'.tmplt.php', $template->skeletize('TEMPLATE.tmplt.php'));
+      parent::generateFile($tmplt.'.tmplt.php', $template->skeletize('TEMPLATE'));
     }
   }
   
-  public function generateTemplateFile($tmplt, $module)
+  public function generateTemplate($tmplt, $module)
   {
     $appli_path = innoDir::get('APP').DIR_SEP.$this->appli.DIR_SEP.$module.'.mod'.DIR_SEP.'tmplt';
     parent::setDirectory($appli_path);
+    
     $template = new innoActionSkeleton();
-    parent::generateFile($tmplt.'.tmplt.php', $template->skeletize('TEMPLATE.tmplt.php'));
+    parent::generateFile($tmplt.'.tmplt.php', $template->skeletize('TEMPLATE'));
   }
   
-  public function generateComponentFile($file)
+  public function generateComponentFile($component, $module)
   {
-    parent::generateFile($file);
+    $action = new innoActionSkeleton();
+    parent::setDirectory(innoDir::get('APP').DIR_SEP.$this->appli.DIR_SEP.$module.'.mod');
+    parent::generateFile($component.'.comp.php', $action->skeletize('COMPONENT'));
+    
+    $template = new innoTemplateSkeleton();
+    parent::setDirectory(innoDir::get('APP').DIR_SEP.$this->appli.DIR_SEP.$module.'.mod'.DIR_SEP.'tmplt');
+    parent::generateFile($component.'.comp.tmplt.php', $template->skeletize('COMPONENT'));
+  }
+
+  public function generateFragment($fragment, $module)
+  {
+    $template = new innoTemplateSkeleton();
+    parent::setDirectory(innoDir::get('APP').DIR_SEP.$this->appli.DIR_SEP.$module.'.mod'.DIR_SEP.'tmplt');
+    parent::generateFile('__'.$fragment.'.php', $template->skeletize('COMPONENT'));
   }
 }

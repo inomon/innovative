@@ -29,35 +29,7 @@ class innoConfSkeleton extends innoSkeleton
   
   public function skeletize($skeleton_type, $content = null)
   {
-    switch ($skeleton_type)
-    {
-      case 'app.yml':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-      case 'module.yml':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-      case 'routing.yml':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-      case 'settings.yml':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-      case 'site.yml':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-      case 'view.yml':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-      case 'web.yml':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-      case 'APPLI.ini.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-    }
-    
-    return;
+    return $this->createSkeleton($skeleton_type, $content);
   }
   
   protected function createSkeleton($skeleton_type, $content = null)
@@ -66,53 +38,83 @@ class innoConfSkeleton extends innoSkeleton
     
     switch ($skeleton_type)
     {
-      case 'app.yml':
+      case 'app':
         if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.inc');
+        {          
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.yml.inc');
+        }
+        else
+        {          
+          $skeleton = $content;
+        }
+        break;
+      case 'module':
+        if (is_null($content))
+        {          
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.yml.inc');
+        }
+        else
+        {          
+          $skeleton = $content;
+        }
+        break;
+      case 'routing':
+        if (is_null($content))
+        {          
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.yml.inc');
+        }
+        else
+        {          
+          $skeleton = $content;
+        }
+        break;
+      case 'settings':
+        if (is_null($content))
+        {
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.yml.inc');          
+        }
+        else
+        {          
+          $skeleton = $content;
+        }
+        break;
+      case 'site':
+        if (is_null($content))
+        {          
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.yml.inc');
+        }
+        else
+        {          
+          $skeleton = $content;
+        }
+        break;
+      case 'view':
+        if (is_null($content))
+        {
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.yml.inc');          
+        }
         else
           $skeleton = $content;
         break;
-      case 'module.yml':
+      case 'web':
         if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.inc');
+        {          
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.yml.inc');
+        }
         else
+        {          
           $skeleton = $content;
+        }
         break;
-      case 'routing.yml':
+      case 'APPLI':
         if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.inc');
+        {          
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.ini.php.inc');
+        }
         else
+        {          
           $skeleton = $content;
-        break;
-      case 'settings.yml':
-        if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.inc');
-        else
-          $skeleton = $content;
-        break;
-      case 'site.yml':
-        if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.inc');
-        else
-          $skeleton = $content;
-        break;
-      case 'view.yml':
-        if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.inc');
-        else
-          $skeleton = $content;
-        break;
-      case 'web.yml':
-        if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.inc');
-        else
-          $skeleton = $content;
-        break;
-      case 'APPLI.ini.php':
-        if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_CONF').$skeleton_type.'.inc');
-        else
-          $skeleton = $content;
+        }
         break;
     }
     

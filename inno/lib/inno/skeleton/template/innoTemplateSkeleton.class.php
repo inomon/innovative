@@ -29,26 +29,7 @@ class innoTemplateSkeleton extends innoSkeleton
   
   public function skeletize($skeleton_type, $content = null)
   {
-    switch ($skeleton_type)
-    {
-      case 'error401.tmplt.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-      case 'error403.tmplt.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-      case 'error404.tmplt.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-      case 'TEMPLATE.tmplt.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-      case 'TEMPLATE.comp.tmplt.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-    }
-    
-    return;
+    return $this->createSkeleton($skeleton_type, $content);
   }
   
   protected function createSkeleton($skeleton_type, $content = null)
@@ -57,39 +38,65 @@ class innoTemplateSkeleton extends innoSkeleton
     
     switch ($skeleton_type)
     {
-      case 'error401.tmplt.php':
+      case 'error401':
         if (is_null($content))
         {
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_TEMPLATE').$skeleton_type.'.inc');
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_TEMPLATE').$skeleton_type.'.tmplt.php.inc');
         }
         else
         {        	
           $skeleton = $content;
         }
         break;
-      case 'error403.tmplt.php':
+      case 'error403.tmplt':
         if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_TEMPLATE').$skeleton_type.'.inc');
+        {
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_TEMPLATE').$skeleton_type.'.tmplt.php.inc');          
+        }
         else
+        {          
           $skeleton = $content;
+        }
         break;
-      case 'error404.tmplt.php':
+      case 'error404':
         if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_TEMPLATE').$skeleton_type.'.inc');
+        {          
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_TEMPLATE').$skeleton_type.'.tmplt.php.inc');
+        }
         else
-          $skeleton = $content;
+        {
+          $skeleton = $content;          
+        }
         break;
-      case 'TEMPLATE.tmplt.php':
+      case 'TEMPLATE':
         if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_TEMPLATE').$skeleton_type.'.inc');
+        {          
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_TEMPLATE').$skeleton_type.'.tmplt.php.inc');
+        }
         else
+        {          
           $skeleton = $content;
+        }
         break;
-      case 'TEMPLATE.comp.tmplt.php':
+      case 'COMPONENT':
         if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_TEMPLATE').$skeleton_type.'.inc');
+        {          
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_TEMPLATE').$skeleton_type.'.comp.tmplt.php.inc');
+        }
         else
+        {          
           $skeleton = $content;
+        }
+        break;
+      case 'FRAGMENT':
+        if (is_null($content))
+        {          
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_TEMPLATE').$skeleton_type.'.php.inc');
+        }
+        else
+        {          
+          $skeleton = $content;
+        }
         break;
     }
     

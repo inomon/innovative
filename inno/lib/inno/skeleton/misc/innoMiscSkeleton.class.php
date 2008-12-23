@@ -29,14 +29,7 @@ class innoMiscSkeleton extends innoSkeleton
   
   public function skeletize($skeleton_type, $content = null)
   {
-    switch ($skeleton_type)
-    {
-      case 'index.php':
-        return $this->createSkeleton($skeleton_type, $content);
-        break;
-    }
-    
-    return;
+    return $this->createSkeleton($skeleton_type, $content);
   }
   
   protected function createSkeleton($skeleton_type, $content = null)
@@ -45,11 +38,15 @@ class innoMiscSkeleton extends innoSkeleton
     
     switch ($skeleton_type)
     {
-      case 'index.php':
+      case 'index':
         if (is_null($content))
-          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_MISC').$skeleton_type.'.inc');
+        {          
+          $skeleton = parent::generateSkeleton(innoDir::get('DATA_SKEL_MISC').$skeleton_type.'.php.inc');
+        }
         else
+        {          
           $skeleton = $content;
+        }
         break;
     }
     

@@ -19,7 +19,7 @@
  */
 
 function textbox_automsg($textbox, $msg, $auto_close = true)
-{
+{ 
   _automsg_assets();
   $auto_msg_cnt = _automsg_count();
   if (!$auto_close)
