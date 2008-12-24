@@ -28,4 +28,3 @@ comp_tmplt_add: { module: template, action: comp_create, url: /comp_tmplt_add }
 comp_tmplt_del: { module: template, action: comp_delete, url: /comp_tmplt_del }
 comp_tmplt_ren: { module: template, action: comp_rename, url: /comp_tmplt_ren }
 
-

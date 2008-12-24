@@ -14,10 +14,10 @@ Options +FollowSymLinks +ExecCGI
   #RewriteRule .* - [L]
    
   # start - this is the rule for the other environments
-  RewriteRule ^backend.php/(.*)$ backend.php [QSA,L]
+  RewriteRule ^backend.php(.*)$ backend.php [QSA,L]
   # end - this is the rule for the other environments
   
   # the two most basic application environment
-  RewriteRule ^dev.php/(.*)$ dev.php [QSA,L]
+  RewriteRule ^dev.php(.*)$ dev.php [QSA,L]
   RewriteRule ^(.*)$ index.php [QSA,L]
 </IfModule>

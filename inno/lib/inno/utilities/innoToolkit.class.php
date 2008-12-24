@@ -25,5 +25,27 @@ class innoToolkit
     
   }
   
+  public static function fileToString($file, $buffer = false)
+  {
+    if (!$buffer)
+    {      
+      return file_get_contents($file);
+    }
+    
+    $file_buffer = '';
+    $handle = fopen($file, "r");
+    if ($handle) {
+      while (!feof($handle)) {
+        $file_buffer = fgets($handle);
+      }
+      fclose($handle);
+    }
+    
+    return $file_buffer;
+  }
   
+  public static function fileToArray($file)
+  {
+    return file($file);
+  }
 }
