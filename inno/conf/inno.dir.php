@@ -80,10 +80,11 @@ innoDir::initialize(array(
         'DEV_MODULE_ACTION' => LIB.DIR_SEP.'dev'.DIR_SEP.'%s.mod'.DIR_SEP,
         'DEV_MODULE_TMPLT'  => LIB.DIR_SEP.'dev'.DIR_SEP.'%s.mod'.DIR_SEP.'tmplt'.DIR_SEP,
         // data directory
-        'DATA_SKEL_ACTION'   => LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'data'.DIR_SEP.'action'.DIR_SEP,
-        'DATA_SKEL_CONF'     => LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'data'.DIR_SEP.'conf'.DIR_SEP,
-        'DATA_SKEL_MISC'     => LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'data'.DIR_SEP.'misc'.DIR_SEP,
-        'DATA_SKEL_TEMPLATE' => LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP.'data'.DIR_SEP.'template'.DIR_SEP,
+        'DATA_SKEL_ACTION'   => LIB.DIR_SEP.'data'.DIR_SEP.'skeleton'.DIR_SEP.'action'.DIR_SEP,
+        'DATA_SKEL_CONF'     => LIB.DIR_SEP.'data'.DIR_SEP.'skeleton'.DIR_SEP.'conf'.DIR_SEP,
+        'DATA_SKEL_MISC'     => LIB.DIR_SEP.'data'.DIR_SEP.'skeleton'.DIR_SEP.'misc'.DIR_SEP,
+        'DATA_SKEL_TEMPLATE' => LIB.DIR_SEP.'data'.DIR_SEP.'skeleton'.DIR_SEP.'template'.DIR_SEP,
+        'DATA_PROJECT'       => LIB.DIR_SEP.'data'.DIR_SEP.'project'.DIR_SEP,
         // the core inno library directories
         'INNO_LIB_DIRS'     => array(
                                   // library directories

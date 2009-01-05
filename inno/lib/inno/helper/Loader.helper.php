@@ -159,6 +159,6 @@ function include_class()
   
   foreach ($classes as $class)
   {
-    $class
+    include_once(innoDir::get('MODULE_CLASS').$class.'.class.php');
   }
 }

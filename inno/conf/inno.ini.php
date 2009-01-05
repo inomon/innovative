@@ -23,6 +23,12 @@ if (!$is_cached)
   // load the routing rules
   innoConfig::set('inno_appli_settings', Spyc::YAMLLoad(innoDir::get('CONF').'settings.yml'));
   
+  // load inno-settings
+  $inno_project_settings = Spyc::YAMLLoad(innoDir::get('DATA_PROJECT').'inno-settings.yml'); 
+  innoConfig::set('inno_project_settings', $inno_project_settings['propel']);
+  innoConfig::set('inno_project_name', $inno_project_settings['propel']['project']);
+  unset($inno_project_settings);
+  
   // initialize default loaded classes and helpers
   $settings = innoConfig::get('inno_appli_settings');
   load_helper($settings['inno_autoload']['helpers']);
