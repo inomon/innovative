@@ -28,7 +28,7 @@ javascript:
 php
   object-relational mapping
     - propel [Propel, http://propel.phpdb.org]
-  yml to php
+  yml convertion
     - spyc [SimplePhpYamlClass, http://spyc.sourceforge.net]
 
 Core Library License - MIT License

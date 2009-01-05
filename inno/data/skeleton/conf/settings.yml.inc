@@ -1,7 +1,7 @@
 # do not edit manually
 inno_autoload:
-  classes: [innoAssets, innoRenderer, innoRequest, innoRouting, innoController, innoError401Exception, innoError403Exception, innoError404Exception]
-  helpers: [Tag, Exception, Fragment]
+  classes: [assets.innoAssets, renderer.innoRenderer, request.innoRequest, routing.innoRouting, controller.innoController, exception.innoError401Exception, exception.innoError403Exception, exception.innoError404Exception, exception.innoSkipActionException]
+  helpers: [Tag, Exception, Fragment, Assets]
 database:
   host:          localhost
   username:      root

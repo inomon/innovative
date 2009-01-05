@@ -26,17 +26,26 @@ function initializeLoader()
 function load_helper()
 {
   if (is_string(func_get_arg(0)))
-    $helpers[] = func_get_arg(0);
+    $helpers[] = func_get_args();
   else if (is_array(func_get_arg(0)))
     $helpers = func_get_arg(0);
   else
-    $helpers = func_get_args();
+    die('Input Error: Loader error!');
   
   foreach ($helpers as $helper)
   {
     $file = innoDir::get('INNO_HELPER').$helper.'.helper.php';
     if(file_exists($file))
     {
+      innoAutoload::addHelper($helper, $file);
+      include_once($file);
+      $ini = 'initialize'.$helper;
+      if(function_exists($ini))
+        $ini();
+    }
+    else if (file_exists(innoDir::get('MODULE_HELPER').$helper.'.helper.php'))
+    {
+      $file = innoDir::get('MODULE_HELPER').$helper.'.helper.php';
       innoAutoload::addHelper($helper, $file);
       include_once($file);
       $ini = 'initialize'.$helper;
@@ -53,15 +62,19 @@ function load_helper()
 function load_class()
 {
   if (is_string(func_get_arg(0)))
-    $classes[] = func_get_arg(0);
+    $classes[] = func_get_args();
   else if (is_array(func_get_arg(0)))
     $classes = func_get_arg(0);
   else
-    $classes = func_get_args();
+    die('Input Error: Loader error!');
   
   foreach ($classes as $class)
   {
+    $class_name = $class;
+    $class = str_replace($class, DIR_SEP, '.');
     $class_exists = false;
+    
+    /*
     $file = $class.'.class.php';
     foreach (innoDir::get('INNO_LIB_DIRS') as $dir)
     {
@@ -73,6 +86,14 @@ function load_class()
         break;
       }
     }
+    */
+    
+    $cls = innoDir::get('INNO_LIB').$class.'.class.php';
+    if(file_exists($cls))
+    {
+      innoAutoload::addClass($class_name, $cls);
+      $class_exists = true;
+    }   
     
     if($class_exists)
       include_once($file);
@@ -83,6 +104,57 @@ function load_class()
   return;
 }
 
+function load_helper_from_cache()
+{
+  $helpers = func_get_arg(0);
+  
+  foreach ($helpers as $helper)
+  {
+    $substr_end = strpos($helper, '.')-1;
+    $substr_str = strrpos($helper, ((stripos($_SERVER["DOCUMENT_ROOT"], ':') === false) ? "/" : "\\" ))+1;
+    $helper_name = substr($helper, $substr_str, $substr_end);
+    
+    include_once($helper);
+    $ini = 'initialize'.$helper_name;
+    if(function_exists($ini))
+      $ini();
+  }
+  
+  return;
+}
+
+function load_class_from_cache()
+{
+  $classes = func_get_arg(0);
+  
+  foreach ($classes as $class)
+  {
+    $substr_end = strpos($class, '.')-1;
+    $substr_str = strrpos($class, ((stripos($_SERVER["DOCUMENT_ROOT"], ':') === false) ? "/" : "\\" ))+1;
+    $class_name = substr($class, $substr_str, $substr_end);
+    
+    include_once($class);
+    $ini = 'initialize'.$class_name;
+    if(function_exists($ini))
+      $ini();
+  }
+  
+  return;
+}
+
+function include_class()
+{
+  if (is_string(func_get_arg(0)))
+    $classes[] = func_get_args();
+  else if (is_array(func_get_arg(0)))
+    $classes = func_get_arg(0);
+  else
+    die('Input Error: Loader error!');
+  
+  
+}
+
+/*
 function app_helper()
 {
   if (is_string(func_get_arg(0)))
@@ -134,43 +206,4 @@ function app_class()
   
   return;
 }
-
-function load_helper_from_cache()
-{
-  $helpers = func_get_arg(0);
-  
-  foreach ($helpers as $helper)
-  {
-    $substr_end = strpos($helper, '.')-1;
-    $substr_str = strrpos($helper, ((stripos($_SERVER["DOCUMENT_ROOT"], ':') === false) ? "/" : "\\" ))+1;
-    $helper_name = substr($helper, $substr_str, $substr_end);
-    
-    include_once($helper);
-    $ini = 'initialize'.$helper_name;
-    if(function_exists($ini))
-      $ini();
-  }
-  
-  return;
-}
-
-function load_class_from_cache()
-{
-  $classes = func_get_arg(0);
-  
-  foreach ($classes as $class)
-  {
-    $substr_end = strpos($class, '.')-1;
-    $substr_str = strrpos($class, ((stripos($_SERVER["DOCUMENT_ROOT"], ':') === false) ? "/" : "\\" ))+1;
-    $class_name = substr($class, $substr_str, $substr_end);
-    
-    include_once($class);
-    $ini = 'initialize'.$class_name;
-    if(function_exists($ini))
-      $ini();
-  }
-  
-  return;
-}
-
-
+*/

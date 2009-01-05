@@ -60,8 +60,8 @@ class innoAssets
   /**
    * Enter description here...
    *
-   * @param unknown_type $script
-   * @return string || boolean
+   * @param string $script
+   * @return mixed
    */
   public static function addScriptHead($script = null)
   {
@@ -76,8 +76,8 @@ class innoAssets
   /**
    * Enter description here...
    *
-   * @param unknown_type $style
-   * @return unknown
+   * @param string $style
+   * @return mixed
    */
   public static function addStyleHead($style = null)
   {
@@ -93,7 +93,7 @@ class innoAssets
   /**
    * Enter description here...
    *
-   * @param unknown_type $script
+   * @param string $script
    */
   public static function remScriptHead($script = null)
   {
@@ -103,7 +103,7 @@ class innoAssets
   /**
    * Enter description here...
    *
-   * @param unknown_type $style
+   * @param string $style
    */
   public static function remStyleHead($style = null)
   {
@@ -113,7 +113,7 @@ class innoAssets
   /**
    * Enter description here...
    *
-   * @return unknown
+   * @return string
    */
   public static function getScriptHead()
   {
@@ -123,7 +123,7 @@ class innoAssets
   /**
    * Enter description here...
    *
-   * @return unknown
+   * @return string
    */
   public static function getStyleHead()
   {
@@ -133,7 +133,7 @@ class innoAssets
   /**
    * Enter description here...
    *
-   * @param unknown_type $script
+   * @param string $script
    */
   public static function addJavascript($script = null)
   {
@@ -157,7 +157,7 @@ class innoAssets
   /**
    * Enter description here...
    *
-   * @param unknown_type $stylesheet
+   * @param string $stylesheet
    */
   public static function addStylesheet($stylesheet = null)
   {
@@ -181,7 +181,7 @@ class innoAssets
   /**
    * Enter description here...
    *
-   * @param unknown_type $favicon
+   * @param string $favicon
    */
   function setFavicon($favicon = null)
   {

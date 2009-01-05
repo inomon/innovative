@@ -33,24 +33,6 @@ if (!$is_cached)
     Propel::init(innoDir::get('PROPEL_CONF').$settings['project']['name'].'-conf.php');
   }
   unset($settings);
-  /*
-  load_helper(
-    'Tag', 
-    'Exception',
-    'Fragment'
-  );
-  load_class(
-    'innoAssets', 
-    'innoRenderer', 
-    'innoRequest', 
-    'innoRouting',
-    'innoController',
-    'innoError401Exception',
-    'innoError403Exception',
-    'innoError404Exception',
-    'innoSkipActionException'
-  );
-  */
 }
 else
 {
