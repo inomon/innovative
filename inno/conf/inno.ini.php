@@ -20,25 +20,25 @@ if (!$is_cached)
 
   // load the routing rules
   innoConfig::set('inno_routing_rules', Spyc::YAMLLoad(innoDir::get('CONF').'routing.yml'));
-  // load the routing rules
-  innoConfig::set('inno_appli_settings', Spyc::YAMLLoad(innoDir::get('CONF').'settings.yml'));
-  
-  // load inno-settings
-  $inno_project_settings = Spyc::YAMLLoad(innoDir::get('DATA_PROJECT').'inno-settings.yml'); 
-  innoConfig::set('inno_project_settings', $inno_project_settings['propel']);
-  innoConfig::set('inno_project_name', $inno_project_settings['propel']['project']);
-  unset($inno_project_settings);
+  // load the application settings
+  foreach(Spyc::YAMLLoad(innoDir::get('CONF').'settings.yml') as $key => $value)
+  {
+    innoConfig::set('inno_appli_settings_' . $key, $value);
+  }
   
   // initialize default loaded classes and helpers
-  $settings = innoConfig::get('inno_appli_settings');
-  load_helper($settings['inno_autoload']['helpers']);
-  load_class($settings['inno_autoload']['classes']);
-  if($settings['database']['enable_conn'])
+  load_helper(innoConfig::get('inno_appli_settings_inno_autoload', null, 'helpers'));
+  load_class(innoConfig::get('inno_appli_settings_inno_autoload', null, 'classes'));
+  
+  // initialize database connection, if enabled
+  if(innoConfig::get('inno_appli_settings_database', null, 'enable_conn') === true)
   {
     require_once('propel/Propel.php');
-    Propel::init(innoDir::get('PROPEL_CONF').$settings['project']['name'].'-conf.php');
+    Propel::init(innoDir::get('PROPEL_CONF').innoConfig::get('inno_appli_settings_propel', null, 'project').'-conf.php');
   }
-  unset($settings);
+  
+  var_dump(innoConfig::getAll());
+  die();
 }
 else
 {

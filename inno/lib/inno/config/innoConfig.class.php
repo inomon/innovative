@@ -54,12 +54,23 @@ class innoConfig
   {
     return array_key_exists($name, self::$config);
   }
-   
-  public static function get($config_key, $default = null)
+  
+  public static function get($config_key, $default = '', $array_key = null)
   {
+    if (!is_null($array_key))
+    {
+      $config_array = self::$config[$config_key];
+      if (isset(self::$config[$config_key]))
+      {
+        return (isset($config_array[$array_key])) ? $config_array[$array_key] : $default;
+      }
+      
+      return $default;
+    }
+    
     return isset(self::$config[$config_key]) ? self::$config[$config_key] : $default;
   }
-
+  
   public static function getConfgWithKey($confg_key, $strip_key = false)
   {
     $spec_confg = array();

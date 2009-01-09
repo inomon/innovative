@@ -71,7 +71,7 @@ function load_class()
   foreach ($classes as $class)
   {
     $class_name = $class;
-    $class = str_replace($class, DIR_SEP, '.');
+    $class = str_replace('.', DIR_SEP, $class);
     $class_exists = false;
     
     /*
@@ -89,7 +89,7 @@ function load_class()
     */
     
     $file = innoDir::get('INNO_LIB').$class.'.class.php';
-    if(file_exists($cls))
+    if(file_exists($file))
     {
       innoAutoload::addClass($class_name, $file);
       $class_exists = true;

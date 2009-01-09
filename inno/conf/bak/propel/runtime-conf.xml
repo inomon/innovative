@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<config>
+ <!-- Uncomment this if you have PEAR Log installed
+ <log>
+  <type>file</type>
+  <name>/path/to/prople.log</name>
+  <ident>propel-bookstore</ident>
+  <level>7</level>
+ </log>
+ -->
+ <propel>
+  <datasources default="innovative">
+   <datasource id="innovative"> <!-- this ID must match <database name=""> in schema.xml -->
+    <adapter>mysql</adapter> <!-- sqlite, mysql, myssql, oracle, or pgsql -->
+    <connection>
+     <dsn>mysql:host=localhost;dbname=test</dsn> <!-- the PDO connection DSN for database -->
+     <user>root</user>
+     <password>root</password>
+    </connection>
+   </datasource>
+  </datasources>
+ </propel>
+</config>

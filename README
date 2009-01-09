@@ -12,7 +12,7 @@ php5
   needed settings:
     + include_path
     + register_globals
-.htaccess
+apache
   needed modules:
     + mod_rewrite
 
