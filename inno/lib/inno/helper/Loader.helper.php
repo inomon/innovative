@@ -59,6 +59,57 @@ function load_helper()
   return;
 }
 
+function load_library()
+{
+  if (is_string(func_get_arg(0)))
+    $classes[] = func_get_args();
+  else if (is_array(func_get_arg(0)))
+    $classes = func_get_arg(0);
+  else
+    die('Input Error: Loader error!');
+  
+  foreach ($classes as $class)
+  {
+    $class_name = $class;
+    $class = str_replace('.', DIR_SEP, $class);
+    $class_exists = false;
+    
+    /*
+    $file = $class.'.class.php';
+    foreach (innoDir::get('INNO_LIB_DIRS') as $dir)
+    {
+      if(file_exists($dir.$file))
+      {
+        innoAutoload::addClass($class, $dir.$file);
+        $file = $dir.$file;
+        $class_exists = true;
+        break;
+      }
+    }
+    */
+    
+    $file = innoDir::get('INNO_LIB').$class.'.class.php';
+    if(file_exists($file))
+    {
+      innoAutoload::addClass($class_name, $file);
+      $class_exists = true;
+    }
+    else if (file_exists(innoDir::get('MODULE_CLASS').$class.'.class.php'))
+    {
+      $file = innoDir::get('MODULE_CLASS').$class.'.class.php';
+      innoAutoload::addClass($class_name, innoDir::get('MODULE_CLASS').$class.'.class.php');
+      $class_exists = true;
+    }
+    
+    if($class_exists)
+      include_once($file);
+    else 
+      die('This class doesnt exist: '.$file);
+  }
+  
+  return; 
+}
+
 function load_class()
 {
   if (is_string(func_get_arg(0)))
@@ -110,6 +161,21 @@ function load_class()
   return;
 }
 
+function include_class()
+{
+  if (is_string(func_get_arg(0)))
+    $classes[] = func_get_args();
+  else if (is_array(func_get_arg(0)))
+    $classes = func_get_arg(0);
+  else
+    die('Input Error: Loader error!');
+  
+  foreach ($classes as $class)
+  {
+    include_once(innoDir::get('MODULE_CLASS').$class.'.class.php');
+  }
+}
+
 function load_helper_from_cache()
 {
   $helpers = func_get_arg(0);
@@ -146,19 +212,4 @@ function load_class_from_cache()
   }
   
   return;
-}
-
-function include_class()
-{
-  if (is_string(func_get_arg(0)))
-    $classes[] = func_get_args();
-  else if (is_array(func_get_arg(0)))
-    $classes = func_get_arg(0);
-  else
-    die('Input Error: Loader error!');
-  
-  foreach ($classes as $class)
-  {
-    include_once(innoDir::get('MODULE_CLASS').$class.'.class.php');
-  }
 }

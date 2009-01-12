@@ -98,13 +98,11 @@ class innoCache
 "
 <?php if ( ! defined('LIB')) exit('Direct script access is not allowed!');\n
 innoConfig::addFromCache(".$conf.");\n\n
-\$settings = innoConfig::get('inno_appli_settings');
-if(\$settings['database']['enable_conn'])
-{
-  require_once('propel/Propel.php'); 
-  Propel::init(innoDir::get('PROPEL_CONF').\$settings['project']['name'].'-conf.php');
-}
-unset(\$settings);
+if(innoConfig::get('inno_appli_settings_database', null, 'enable_conn') === true)\n
+{\n
+  require_once('propel/Propel.php');\n
+  Propel::init(innoDir::get('PROPEL_CONF').innoConfig::get('inno_appli_settings_propel', null, 'project').'-conf.php');\n
+}\n
 ";
       $autoload = 
 "

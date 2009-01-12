@@ -36,9 +36,6 @@ if (!$is_cached)
     require_once('propel/Propel.php');
     Propel::init(innoDir::get('PROPEL_CONF').innoConfig::get('inno_appli_settings_propel', null, 'project').'-conf.php');
   }
-  
-  var_dump(innoConfig::getAll());
-  die();
 }
 else
 {
