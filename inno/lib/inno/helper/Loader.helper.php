@@ -18,12 +18,16 @@
  *
  */
 
+/**
+ * Enter description here...
+ *
+ */
 function initializeLoader()
 {
   // initialization function
 }
 
-function load_helper()
+function include_helper()
 {
   if (is_string(func_get_arg(0)))
     $helpers[] = func_get_args();
@@ -59,7 +63,11 @@ function load_helper()
   return;
 }
 
-function load_library()
+/**
+ * Enter description here...
+ *
+ */
+function include_library()
 {
   if (is_string(func_get_arg(0)))
     $classes[] = func_get_args();
@@ -92,12 +100,6 @@ function load_library()
     if(file_exists($file))
     {
       innoAutoload::addClass($class_name, $file);
-      $class_exists = true;
-    }
-    else if (file_exists(innoDir::get('MODULE_CLASS').$class.'.class.php'))
-    {
-      $file = innoDir::get('MODULE_CLASS').$class.'.class.php';
-      innoAutoload::addClass($class_name, innoDir::get('MODULE_CLASS').$class.'.class.php');
       $class_exists = true;
     }
     
@@ -110,7 +112,40 @@ function load_library()
   return; 
 }
 
-function load_class()
+/**
+ * Enter description here...
+ *
+ */
+function include_class()
+{
+  if (is_string(func_get_arg(0)))
+    $classes[] = func_get_args();
+  else if (is_array(func_get_arg(0)))
+    $classes = func_get_arg(0);
+  else
+    die('Input Error: Loader error!');
+  
+  foreach ($classes as $class)
+  {    
+    $file = innoDir::get('MODULE_CLASS').$class.'.class.php';
+    if(file_exists($file))
+    {
+      innoAutoload::addClass($class_name, $file);
+      $class_exists = true;
+    }
+    
+    if($class_exists)
+      include_once($file);
+    else 
+      die('This class doesnt exist: '.$file);
+  }
+}
+
+/**
+ * Enter description here...
+ *
+ */
+function include_peercls()
 {
   if (is_string(func_get_arg(0)))
     $classes[] = func_get_args();
@@ -121,34 +156,11 @@ function load_class()
   
   foreach ($classes as $class)
   {
-    $class_name = $class;
-    $class = str_replace('.', DIR_SEP, $class);
     $class_exists = false;
-    
-    /*
-    $file = $class.'.class.php';
-    foreach (innoDir::get('INNO_LIB_DIRS') as $dir)
-    {
-      if(file_exists($dir.$file))
-      {
-        innoAutoload::addClass($class, $dir.$file);
-        $file = $dir.$file;
-        $class_exists = true;
-        break;
-      }
-    }
-    */
-    
-    $file = innoDir::get('INNO_LIB').$class.'.class.php';
+    $file = sprintf(innoDir::get('PROJ_LIB'), innoConfig::get('inno_appli_settings_propel', null, 'project')).$class.'.class.php';
     if(file_exists($file))
     {
-      innoAutoload::addClass($class_name, $file);
-      $class_exists = true;
-    }
-    else if (file_exists(innoDir::get('MODULE_CLASS').$class.'.class.php'))
-    {
-      $file = innoDir::get('MODULE_CLASS').$class.'.class.php';
-      innoAutoload::addClass($class_name, innoDir::get('MODULE_CLASS').$class.'.class.php');
+      innoAutoload::addClass($class, $file);
       $class_exists = true;
     }
     
@@ -161,22 +173,7 @@ function load_class()
   return;
 }
 
-function include_class()
-{
-  if (is_string(func_get_arg(0)))
-    $classes[] = func_get_args();
-  else if (is_array(func_get_arg(0)))
-    $classes = func_get_arg(0);
-  else
-    die('Input Error: Loader error!');
-  
-  foreach ($classes as $class)
-  {
-    include_once(innoDir::get('MODULE_CLASS').$class.'.class.php');
-  }
-}
-
-function load_helper_from_cache()
+function include_helper_from_cache()
 {
   $helpers = func_get_arg(0);
   
@@ -195,7 +192,7 @@ function load_helper_from_cache()
   return;
 }
 
-function load_class_from_cache()
+function include_class_from_cache()
 {
   $classes = func_get_arg(0);
   

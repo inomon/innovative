@@ -36,11 +36,25 @@ class innoArrayToXml
     {
       $xml_file .= " ".$attr."='".$prop."'";
     }
-     $xml_file .= ">";
-
+    $xml_file .= ">";
+    
+    /*
     // content goes here
     
-    $xml_file = "<".$this->root_node.">";
+    // content goes here
+    */
+    
+    $xml_file = "</".$this->root_node.">";
+  }
+  
+  protected function toNode($root_node, $root_node_details)
+  {
+    $node = "<".$root_node;
+    foreach ($root_node_details as $attr => $prop)
+    {
+      $node .= " ".$attr."='".$prop."'";
+    }
+    $node .= ">";
   }
   
 }

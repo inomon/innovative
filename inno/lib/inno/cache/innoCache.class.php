@@ -107,8 +107,8 @@ if(innoConfig::get('inno_appli_settings_database', null, 'enable_conn') === true
       $autoload = 
 "
 <?php if ( ! defined('LIB')) exit('Direct script access is not allowed!');\n
-load_class_from_cache(".$class.");\n\n
-load_helper_from_cache(".$helper.");\n\n
+include_class_from_cache(".$class.");\n\n
+include_helper_from_cache(".$helper.");\n\n
 ";
       return ($this->cache(innoDir::get('CACHE_CONF').'innoconfig.php', $configuration) && $this->cache(innoDir::get('CACHE_CONF').'innoautoload.php', $autoload));
     }
@@ -153,14 +153,15 @@ load_helper_from_cache(".$helper.");\n\n
   public function cache($file, $content)
   {
     if (is_writable($this->cache_dir)) {
-        if (!$f_handle = fopen($file,'w'))
-             return false;
-        
-        if (fwrite($f_handle, $content) === FALSE)
-            return false;
-        
-        fclose($f_handle);
-        return true;
+      
+      if (!$f_handle = fopen($file,'w'))
+           return false;
+      
+      if (fwrite($f_handle, $content) === FALSE)
+          return false;
+      
+      fclose($f_handle);
+      return true;
     } 
     
     return false;    

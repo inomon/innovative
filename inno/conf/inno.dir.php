@@ -47,6 +47,7 @@ innoDir::initialize(array(
         // project classes & ORM directory
         'LIB'               => LIB.DIR_SEP.'lib'.DIR_SEP,
         'ORM'               => LIB.DIR_SEP.'lib'.DIR_SEP.'classes'.DIR_SEP,
+        'PROJ_LIB'          => LIB.DIR_SEP.'lib'.DIR_SEP.'classes'.DIR_SEP.'%s'.DIR_SEP,
         'PROPEL'            => LIB.DIR_SEP.'lib'.DIR_SEP.'classes'.DIR_SEP.'propel'.DIR_SEP,
         // inno library directory
         'INNO_LIB'          => LIB.DIR_SEP.'lib'.DIR_SEP.'inno'.DIR_SEP,

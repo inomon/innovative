@@ -17,7 +17,7 @@ if (!$is_cached)
   innoConfig::add(Spyc::YAMLLoad(innoDir::get('CONF').'site.yml'));
   // load the view configuration
   innoConfig::add(Spyc::YAMLLoad(innoDir::get('CONF').'view.yml'));
-
+  
   // load the routing rules
   innoConfig::set('inno_routing_rules', Spyc::YAMLLoad(innoDir::get('CONF').'routing.yml'));
   // load the application settings
@@ -27,8 +27,8 @@ if (!$is_cached)
   }
   
   // initialize default loaded classes and helpers
-  load_helper(innoConfig::get('inno_appli_settings_inno_autoload', null, 'helpers'));
-  load_class(innoConfig::get('inno_appli_settings_inno_autoload', null, 'classes'));
+  include_helper(innoConfig::get('inno_appli_settings_inno_autoload', null, 'helpers'));
+  include_library(innoConfig::get('inno_appli_settings_inno_autoload', null, 'classes'));
   
   // initialize database connection, if enabled
   if(innoConfig::get('inno_appli_settings_database', null, 'enable_conn') === true)
