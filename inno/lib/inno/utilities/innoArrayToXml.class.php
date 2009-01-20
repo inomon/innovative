@@ -31,7 +31,7 @@ class innoArrayToXml
   
   public function toXml($xml_array)
   {
-    $xml_file = "<?xml version='1.0' encoding='utf-8'?><".$this->root_node;
+    $xml_file = "<?xml version='1.0' encoding='utf-8'?>\n<".$this->root_node;
     foreach ($this->root_node_details as $attr => $prop)
     {
       $xml_file .= " ".$attr."='".$prop."'";
