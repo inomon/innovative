@@ -18,7 +18,11 @@
  *
  */
 
-load_class('innoGenerator', 'innoActionSkeleton', 'innoConfSkeleton', 'innoMiscSkeleton', 'innoTemplateSkeleton');
+include_library('templater.innoGenerator', 
+                'skeleton.action.innoActionSkeleton', 
+                'skeleton.conf.innoConfSkeleton', 
+                'skeleton.misc.innoMiscSkeleton', 
+                'skeleton.template.innoTemplateSkeleton');
 
 class innoTemplateGenerator extends innoGenerator
 {

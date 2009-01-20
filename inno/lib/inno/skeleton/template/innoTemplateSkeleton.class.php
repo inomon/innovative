@@ -18,7 +18,7 @@
  *
  */
 
-load_class('innoSkeleton');
+include_library('skeleton.innoSkeleton');
 
 class innoTemplateSkeleton extends innoSkeleton
 {

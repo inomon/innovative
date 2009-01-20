@@ -100,8 +100,17 @@ class innoCache
 innoConfig::addFromCache(".$conf.");\n\n
 if(innoConfig::get('inno_appli_settings_database', null, 'enable_conn') === true)\n
 {\n
-  require_once('propel/Propel.php');\n
-  Propel::init(innoDir::get('PROPEL_CONF').innoConfig::get('inno_appli_settings_propel', null, 'project').'-conf.php');\n
+  if(innoConfig::get('inno_appli_settings_database', null, 'orm') == 'propel')\n
+  {\n
+    require_once('propel/Propel.php');\n
+    Propel::init(innoDir::get('PROPEL_CONF').innoConfig::get('inno_appli_settings_propel', null, 'project').'-conf.php');\n
+  }\n
+  else if (innoConfig::get('inno_appli_settings_database', null, 'orm') == 'doctrine')\n
+  {\n
+    require_once('lib/Doctrine.php');\n
+    spl_autoload_register(array('Doctrine', 'autoload'));\n
+    Doctrine_Manager::connection(innoConfig::get('inno_appli_settings_doctrine', null, 'url'));\n
+  }\n
 }\n
 ";
       $autoload = 

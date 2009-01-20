@@ -3,6 +3,7 @@ inno_autoload:
   classes: [assets.innoAssets, renderer.innoRenderer, request.innoRequest, routing.innoRouting, controller.innoController, exception.innoError401Exception, exception.innoError403Exception, exception.innoError404Exception, exception.innoSkipActionException]
   helpers: [Tag, Fragment, Assets]
 database:
+  orm:           propel
   host:          localhost
   username:      root
   password:      root
@@ -25,6 +26,7 @@ propel:
   reference_values:
     database:
       type: [pgsql, mysql, sqlite, mssql, oracle]
-
+doctrine:
+  project: innovative
 # start editing here
 

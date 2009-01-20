@@ -11,7 +11,7 @@ else
   error_reporting(0);
 
 // include the directory settings file
-include_once('inno.dir.php');
+include_once(dirname(__FILE__).'/../lib/inno/utilities/innoDir.class.php');
 
 // load needed classes to speed-up the initilization 
 include_once(innoDir::get('INNO_LIB').'utilities/Spyc.class.php');

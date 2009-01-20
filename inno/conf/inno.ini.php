@@ -33,8 +33,17 @@ if (!$is_cached)
   // initialize database connection, if enabled
   if(innoConfig::get('inno_appli_settings_database', null, 'enable_conn') === true)
   {
-    require_once('propel/Propel.php');
-    Propel::init(innoDir::get('PROPEL_CONF').innoConfig::get('inno_appli_settings_propel', null, 'project').'-conf.php');
+    if(innoConfig::get('inno_appli_settings_database', null, 'orm') == 'propel')
+    {
+      require_once('propel/Propel.php');
+      Propel::init(innoDir::get('PROPEL_CONF').innoConfig::get('inno_appli_settings_propel', null, 'project').'-conf.php');
+    }
+    else if (innoConfig::get('inno_appli_settings_database', null, 'orm') == 'doctrine')
+    {
+      require_once(sprintf(innoDir::get('USED_ORM'), 'doctrine').'lib/Doctrine.php');
+      spl_autoload_register(array('Doctrine', 'autoload'));
+      Doctrine_Manager::connection(innoConfig::get('inno_appli_settings_doctrine', null, 'url'));
+    }
   }
 }
 else

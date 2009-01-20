@@ -3,11 +3,12 @@ inno_autoload:
   classes: [assets.innoAssets, renderer.innoRenderer, request.innoRequest, routing.innoRouting, controller.innoController, exception.innoError401Exception, exception.innoError403Exception, exception.innoError404Exception, exception.innoSkipActionException]
   helpers: [Tag, Fragment, Assets]
 database:
+  orm:           doctrine
   host:          localhost
   username:      root
   password:      root
   db_name:       database
-  enable_conn:   false
+  enable_conn:   true
 propel:
   project: innovative
   database: 
@@ -25,6 +26,8 @@ propel:
   reference_values:
     database:
       type: [pgsql, mysql, sqlite, mssql, oracle]
-
+doctrine:
+  project: innovative
+  url: 'mysql://root:root@localhost/database'
 # start editing here
 
