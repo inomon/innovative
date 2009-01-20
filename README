@@ -18,20 +18,21 @@ apache
 
 other open source projects used by I.INNOVATIVE:
 javascript:
-  prototype: [Protoypejs.org, http://www.prototypejs.org/]
+  prototype-1.6: [Protoypejs.org, http://www.prototypejs.org/]
     - plugins: 
       + modalbox [Wildbit.com, http://www.wildbit.com/labs/modalbox/]
       + window [Prototype-ui,http://prototype-ui.com]
       + cooltips [Wildbit.com, http://www.wildbit.com/labs/cooltips/]
-      + scriptaculous [http://script.aculo.us/]
+      + scriptaculous-1.8 [http://script.aculo.us/]
   fisheye: [Marcgrabanski.com, http://marcgrabanski.com/pages/code/fisheye-menu]
 php
   object-relational mapping
-    - propel [Propel, http://propel.phpdb.org]
+    - propel-1.3 [Propel, http://propel.phpdb.org]
+    - doctrine-1.0.6 [Doctrine, http://www.doctrine-project.org]
   yml convertion
     - spyc [SimplePhpYamlClass, http://spyc.sourceforge.net]
 
 Core Library License - MIT License
 But the above given projects/software code are subject to there own license
 
-#################### README V0.5 #########################
+#################### README V0.6 #########################
