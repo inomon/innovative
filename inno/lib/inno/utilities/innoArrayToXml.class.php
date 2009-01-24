@@ -40,7 +40,15 @@ class innoArrayToXml
     
     /*
     // content goes here
-    
+    */
+    if (is_array($xml_array))
+    {
+      foreach ($xml_array as $attr => $prop)
+      {
+        $this->toNode();
+      }
+    }
+    /*
     // content goes here
     */
     
