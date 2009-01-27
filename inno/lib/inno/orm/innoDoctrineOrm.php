@@ -12,38 +12,16 @@
  *
  * @author:     Orlino L. Monares Jr. <anxietylost110987@gmail.com, orlino_monares110987@yahoo.com>
  * @package:    inno
- * @subpackage: orm.innoOrm
+ * @subpackage: orm.innoDoctrineOrm
  *
  * @todo: _____________
  *
  */
 
-class innoOrm
+class innoDoctrineOrm
 {
-  protected $orm = '';
-  
-  public function __construct($orm)
+  public function __construct()
   {
-    $this->setOrm($orm);
-  }
-  
-  public function setOrm($orm)
-  {
-    $this->orm = $orm;
-  }
-  
-  public function getOrm()
-  {
-    return $this->orm;
-  }
-  
-  public function setProperties($properties = null)
-  {
-    if (!is_array($properties))
-    {
-      return;
-    }
     
-    return;
   }
 }

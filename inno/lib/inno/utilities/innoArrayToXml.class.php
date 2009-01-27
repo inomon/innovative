@@ -36,33 +36,43 @@ class innoArrayToXml
     {
       $xml_file .= " ".$attr."='".$prop."'";
     }
-    $xml_file .= ">";
+    $xml_file .= '>';
     
     /*
     // content goes here
     */
     if (is_array($xml_array))
     {
-      foreach ($xml_array as $attr => $prop)
-      {
-        $this->toNode();
-      }
+      $xml_file .= $this->toNode($xml_array);
     }
     /*
     // content goes here
     */
     
-    $xml_file = "</".$this->root_node.">";
+    $xml_file = '</'.$this->root_node.'>';
   }
   
-  protected function toNode($root_node, $root_node_details)
+  protected function toNode($node)
   {
-    $node = "<".$root_node;
-    foreach ($root_node_details as $attr => $prop)
+    if (!is_array($node))
     {
-      $node .= " ".$attr."='".$prop."'";
+      return '';
     }
-    $node .= ">";
+    
+    foreach ($node as $n => $d)
+    {
+      $elem = '<'.$n;
+      foreach ($node[$n]['details'] as $attr => $prop)
+      {
+        $elem .= " ".$attr."='".$prop."'";
+      }
+      $elem .= '>';
+      unset($node[$n]['details']);
+      $elem .= $this->toNode($node[$n]['nodes']);
+      $elem .= '</'.$n.'>';
+    }
+    
+    return $elem;
   }
   
 }
